@@ -1,0 +1,30 @@
+.back-image {
+  width: 75rem;
+  height: 99vh;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  padding: 3.5rem;
+  width: 60%;
+  margin-top: 5rem;
+}
+
+.site-logo {
+  width: 24rem;
+  //   position: absolute;
+  //   top: 8rem;
+}
+
+.form-title {
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+.form-container {
+  margin-top: 2.5rem;
+}

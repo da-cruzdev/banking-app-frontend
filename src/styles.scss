@@ -1,5 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.min.css";
+@import "@angular/material/theming";
+
+// Définir les palettes de couleurs pour le thème
+// $primary: mat-palette($mat-indigo);
+// $accent: mat-palette($mat-pink, A200, A100, A400);
+// $theme: mat-light-theme($primary, $accent);
+
+// // Appliquer le thème à toute l'application
+// @include angular-material-theme($theme);
 
 //// GLOBAL STYLES /////
 
@@ -17,10 +26,8 @@ html {
 }
 
 body {
-  margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   font-size: 1.6rem;
   font-weight: 300;
-  color: #fff;
   line-height: 1.6;
 }
