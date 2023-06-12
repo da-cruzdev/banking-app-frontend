@@ -7,24 +7,25 @@
         <div class="col-md-6">
             <div class="container">
                 <img src="../../../assets/images/Group 5.png" alt="" class="site-logo">
-                <form class="form-container">
+                <form class="form-container" [formGroup]="registerForm">
                     <h3 class="form-title">Création de compte</h3>
                     <div class="row ">
-                        <mat-form-field appearance="outline">
+                        <mat-form-field appearance="outline" formControlName="name">
                             <mat-label>Nom d'utilisateur</mat-label>
                             <input matInput placeholder="Nom" class="formControl">
                         </mat-form-field>
                         <mat-form-field appearance="outline">
                             <mat-label>Email</mat-label>
-                            <input matInput placeholder="Email" class="formControl">
+                            <input matInput placeholder="Email" class="formControl" formControlName="email">
                         </mat-form-field>
                         <mat-form-field appearance="outline">
                             <mat-label>Mot de passe</mat-label>
-                            <input matInput placeholder="Mot de passe" class="formControl">
+                            <input matInput placeholder="Mot de passe" class="formControl" formControlName="password">
                         </mat-form-field>
                         <mat-checkbox>J'accepte les politiques de confidentialité</mat-checkbox>
                         <button mat-raised-button color="primary" class="mt-5">Je crée mon compte</button>
                     </div>
+                    <!-- <a href="#">Se connecter à mon compte</a> -->
                 </form>
             </div>
         </div>
