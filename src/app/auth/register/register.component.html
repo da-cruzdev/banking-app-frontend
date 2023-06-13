@@ -13,19 +13,23 @@
                         <mat-form-field appearance="outline">
                             <mat-label>Nom d'utilisateur</mat-label>
                             <input matInput placeholder="Nom" formControlName="name">
+                            <mat-icon matSuffix
+                                [ngClass]="{ 'valid-icon': isControlValid('name'), 'invalid-icon': isControlInvalid('name') }">check_circle</mat-icon>
 
-                            <mat-error *ngIf="isControlInvalidAndUntouched('name', 'required')">Le
+                            <mat-error *ngIf="hasControlError('name', 'required')">Le
                                 nom est requis</mat-error>
-                            <mat-error *ngIf="isControlInvalidAndUntouched('name', 'minlength')">Le nom doit avoir au
+                            <mat-error *ngIf="hasControlError('name', 'minlength')">Le nom doit avoir au
                                 moins 3 caratères</mat-error>
                         </mat-form-field>
                         <mat-form-field appearance="outline">
                             <mat-label>Email</mat-label>
                             <input matInput placeholder="Email" formControlName="email">
+                            <mat-icon matSuffix
+                                [ngClass]="{ 'valid-icon': isControlValid('email'), 'invalid-icon': isControlInvalid('email') }">check_circle</mat-icon>
 
-                            <mat-error *ngIf="isControlInvalidAndUntouched('email', 'required')">L'email est
+                            <mat-error *ngIf="hasControlError('email', 'required')">L'email est
                                 requis</mat-error>
-                            <mat-error *ngIf="isControlInvalidAndUntouched('email', 'pattern')">L'email n'est pas
+                            <mat-error *ngIf="hasControlError('email', 'pattern')">L'email n'est pas
                                 valide</mat-error>
                         </mat-form-field>
                         <mat-form-field appearance="outline">
@@ -35,10 +39,10 @@
                             <mat-icon matSuffix (click)="togglePasswordVisibility()">
                                 {{ hidePassword ? 'visibility_off' : 'visibility' }}
                             </mat-icon>
-                            <mat-error *ngIf="isControlInvalidAndUntouched('password', 'required')">Le
+                            <mat-error *ngIf="hasControlError('password', 'required')">Le
                                 mot de passe est requis</mat-error>
-                            <mat-error *ngIf="isControlInvalidAndUntouched('password', 'pattern')">Le
-                                mot de passe est invalide</mat-error>
+                            <mat-error *ngIf="hasControlError('password', 'pattern')">Le
+                                mot de passe doit avoir au moins 8 caractères</mat-error>
                         </mat-form-field>
                         <mat-checkbox formControlName="checkPolitics">J'accepte les politiques
                             de

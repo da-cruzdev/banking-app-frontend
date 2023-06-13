@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { GlobalConstants } from 'src/app/shared/constants/global-constants';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
@@ -16,8 +17,13 @@ export class ForgotPasswordComponent {
 
   ngOnInit(): void {
     this.forgotPassForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$'),
+        ],
+      ],
     });
   }
 
@@ -25,28 +31,25 @@ export class ForgotPasswordComponent {
     const formData = this.forgotPassForm.value;
     const data = {
       email: formData.email,
-      password: formData.password,
     };
-
-    this.authService.login(data).subscribe();
   }
 
   togglePasswordVisibility() {
     this.hidePassword = !this.hidePassword;
   }
 
-  public isControlInvalidAndUntouched(
-    controlName: string,
-    errorKey?: string
-  ): boolean {
+  isControlInvalid(controlName: string): boolean | undefined {
     const control = this.forgotPassForm.get(controlName);
-    const errors = control?.errors;
+    return control?.invalid && (control?.touched || control?.dirty);
+  }
 
-    return (
-      control?.touched &&
-      control?.dirty &&
-      control?.invalid &&
-      (errorKey ? errors?.[errorKey] : true)
-    );
+  isControlValid(controlName: string): boolean | undefined {
+    const control = this.forgotPassForm.get(controlName);
+    return control?.valid;
+  }
+
+  hasControlError(controlName: string, errorName: string): boolean {
+    const control = this.forgotPassForm.get(controlName);
+    return control?.errors?.[errorName];
   }
 }

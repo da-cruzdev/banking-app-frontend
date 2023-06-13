@@ -16,7 +16,13 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$'),
+        ],
+      ],
       password: ['', Validators.required],
     });
   }
@@ -35,18 +41,18 @@ export class LoginComponent implements OnInit {
     this.hidePassword = !this.hidePassword;
   }
 
-  public isControlInvalidAndUntouched(
-    controlName: string,
-    errorKey?: string
-  ): boolean {
+  isControlInvalid(controlName: string): boolean | undefined {
     const control = this.loginForm.get(controlName);
-    const errors = control?.errors;
+    return control?.invalid && (control?.touched || control?.dirty);
+  }
 
-    return (
-      control?.touched &&
-      control?.dirty &&
-      control?.invalid &&
-      (errorKey ? errors?.[errorKey] : true)
-    );
+  isControlValid(controlName: string): boolean | undefined {
+    const control = this.loginForm.get(controlName);
+    return control?.valid;
+  }
+
+  hasControlError(controlName: string, errorName: string): boolean {
+    const control = this.loginForm.get(controlName);
+    return control?.errors?.[errorName];
   }
 }

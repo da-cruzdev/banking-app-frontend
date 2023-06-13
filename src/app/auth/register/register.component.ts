@@ -17,8 +17,17 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.registerForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$'),
+        ],
+      ],
+      password: [
+        '',
+        [Validators.required, Validators.pattern('^[A-Za-zd]{8,}$')],
+      ],
       checkPolitics: [false, Validators.requiredTrue],
     });
   }
@@ -39,18 +48,18 @@ export class RegisterComponent implements OnInit {
     this.hidePassword = !this.hidePassword;
   }
 
-  public isControlInvalidAndUntouched(
-    controlName: string,
-    errorKey?: string
-  ): boolean {
+  isControlInvalid(controlName: string): boolean | undefined {
     const control = this.registerForm.get(controlName);
-    const errors = control?.errors;
+    return control?.invalid && (control?.touched || control?.dirty);
+  }
 
-    return (
-      control?.touched &&
-      control?.dirty &&
-      control?.invalid &&
-      (errorKey ? errors?.[errorKey] : true)
-    );
+  isControlValid(controlName: string): boolean | undefined {
+    const control = this.registerForm.get(controlName);
+    return control?.valid;
+  }
+
+  hasControlError(controlName: string, errorName: string): boolean {
+    const control = this.registerForm.get(controlName);
+    return control?.errors?.[errorName];
   }
 }
