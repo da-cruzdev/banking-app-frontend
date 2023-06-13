@@ -83,6 +83,7 @@ export class AuthService {
           this.toastr.success(
             'Veuillez réinitialiser votre mot de passe....!!!!'
           );
+          this.router.navigate(['/auth/account/reset-password']);
         }),
         catchError((error: HttpErrorResponse) => {
           if (error.error instanceof ErrorEvent) {
