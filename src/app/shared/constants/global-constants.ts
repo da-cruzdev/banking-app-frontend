@@ -2,7 +2,9 @@ export class GlobalConstants {
   public static genericError: string =
     'Something went wrong.Please try again later!!!';
 
-  public nameRegex: string = '[a-zA-Z0-9]';
+  public static nameRegex: string = "/^[a-z ,.'-]+$/i";
 
-  public emailRegex = '[A-Za-z0-9._%-]+@[a-zA-Z0-9._%-]+\\.[a-z]{2,3 }';
+  public static emailRegex = '^[w-.]+@([w-]+.)+[w-]{2,4}$';
+
+  public static passwordRegex = '^(?=.*[A-Za-z])(?=.*d)[A-Za-zd]{8,}$';
 }
