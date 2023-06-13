@@ -1,1 +1,33 @@
-<p>dashboard works!</p>
+<mat-drawer-container class="dash-container">
+    <mat-drawer class="left-side" mode="side" opened>Drawer content</mat-drawer>
+    <mat-drawer-content class="content">
+        <p>
+            <mat-toolbar class="content__toolbar">
+                <span>Mes transactions</span>
+                <mat-form-field appearance="outline" class="content__select--1 me-3">
+                    <mat-label class="select-name">Type de compte</mat-label>
+                    <mat-select>
+                        <mat-option>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="content__select--2 me-3">
+                    <mat-label class="select-name">Statut</mat-label>
+                    <mat-select>
+                        <mat-option>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="content__select--3 me-3">
+                    <mat-label class="select-name">Calendrier</mat-label>
+                    <input matInput [matDatepicker]="picker">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+
+
+            </mat-toolbar>
+        </p>
+    </mat-drawer-content>
+</mat-drawer-container>
