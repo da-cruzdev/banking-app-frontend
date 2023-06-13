@@ -34,3 +34,12 @@
 .form-container {
   margin-top: 2rem;
 }
+
+.link-text {
+  font-weight: 500;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
