@@ -12,8 +12,7 @@
                     <div class="row ">
                         <mat-form-field appearance="outline">
                             <mat-label>Nom d'utilisateur</mat-label>
-                            <input matInput placeholder="Nom" [type]="hidePassword ? 'password' : 'text' "
-                                formControlName="name">
+                            <input matInput placeholder="Nom" formControlName="name">
 
                             <mat-error *ngIf="isControlInvalidAndUntouched('name', 'required')">Le
                                 nom est requis</mat-error>
@@ -26,7 +25,7 @@
 
                             <mat-error *ngIf="isControlInvalidAndUntouched('email', 'required')">L'email est
                                 requis</mat-error>
-                            <mat-error *ngIf="isControlInvalidAndUntouched('email', 'email')">L'email n'est pas
+                            <mat-error *ngIf="isControlInvalidAndUntouched('email', 'pattern')">L'email n'est pas
                                 valide</mat-error>
                         </mat-form-field>
                         <mat-form-field appearance="outline">
