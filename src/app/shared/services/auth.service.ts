@@ -40,4 +40,28 @@ export class AuthService {
         })
       );
   }
+
+  login(data: any): Observable<any> {
+    return this.httpClient
+      .post(this.url + '/auth/login', data, {
+        headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      })
+      .pipe(
+        tap((response) => {
+          console.log(response);
+          this.toastr.success('Vous êtes connecté a votre compte avec succès');
+        }),
+        catchError((error: HttpErrorResponse) => {
+          if (error.error instanceof ErrorEvent) {
+            this.toastr.error(
+              "Une erreur s'est produite. Veuillez réessayer.",
+              'Erreur'
+            );
+          } else {
+            this.toastr.error(error.error.error, 'Erreur');
+          }
+          return throwError(error);
+        })
+      );
+  }
 }
