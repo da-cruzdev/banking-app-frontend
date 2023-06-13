@@ -2,6 +2,8 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "@angular/material/theming";
 
+@import "ngx-toastr/toastr";
+
 // Définir les palettes de couleurs pour le thème
 // $primary: mat-palette($mat-indigo);
 // $accent: mat-palette($mat-pink, A200, A100, A400);
