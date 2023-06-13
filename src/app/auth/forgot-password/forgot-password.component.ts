@@ -32,6 +32,8 @@ export class ForgotPasswordComponent {
     const data = {
       email: formData.email,
     };
+
+    this.authService.verifyForgotPass(data).subscribe();
   }
 
   togglePasswordVisibility() {
