@@ -4,13 +4,11 @@
 
 @import "ngx-toastr/toastr";
 
-// Définir les palettes de couleurs pour le thème
-// $primary: mat-palette($mat-indigo);
-// $accent: mat-palette($mat-pink, A200, A100, A400);
-// $theme: mat-light-theme($primary, $accent);
-
-// // Appliquer le thème à toute l'application
-// @include angular-material-theme($theme);
+// RESPONSIVE BREAKPOINTS
+$bp-largest: 75em; // 1200px
+$bp-large: 62.5em; // 1000px
+$bp-medium: 48em; // 800px
+$bp-small: 37.5em; // 600px
 
 //// GLOBAL STYLES /////
 
