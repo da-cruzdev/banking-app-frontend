@@ -44,9 +44,14 @@ export class ResetPasswordComponent {
 
   onSubmit() {
     const formData = this.resetPassForm.value;
-    console.log(formData);
 
-    const data = {};
+    const data = {
+      password: formData.password,
+      confirmPassword: formData.confirmPassword,
+    };
+
+    const token = localStorage.getItem('token');
+    if (token) this.authService.resetPassword(data, token).subscribe();
   }
 
   hasError(controlName: string, errorKey: string): boolean {
@@ -55,7 +60,7 @@ export class ResetPasswordComponent {
 
   get isMisMatchPassword(): boolean {
     const value = isMisMatchPassword(this.resetPassForm);
-    console.log(value, ' ok');
+    // console.log(value, ' ok');
     return value;
   }
 

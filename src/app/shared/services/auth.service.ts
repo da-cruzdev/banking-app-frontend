@@ -7,8 +7,9 @@ import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment.development';
 import { Observable, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { httpResponse } from '../interfaces/http-response.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -74,16 +75,41 @@ export class AuthService {
 
   verifyForgotPass(data: any): Observable<any> {
     return this.httpClient
-      .post(this.url + '/auth/forget-password', data, {
+      .post<httpResponse>(this.url + '/auth/forget-password', data, {
         headers: new HttpHeaders().set('Content-Type', 'application/json'),
       })
       .pipe(
         tap((response) => {
           console.log(response);
-          this.toastr.success(
-            'Veuillez réinitialiser votre mot de passe....!!!!'
-          );
+          const token = response.token;
+          if (token) localStorage.setItem('token', token);
+          this.toastr.success(response.message);
           this.router.navigate(['/auth/account/reset-password']);
+        }),
+        catchError((error: HttpErrorResponse) => {
+          if (error.error instanceof ErrorEvent) {
+            this.toastr.error(
+              "Une erreur s'est produite. Veuillez réessayer.",
+              'Erreur'
+            );
+          } else {
+            this.toastr.error(error.error.error, 'Erreur');
+          }
+          return throwError(error);
+        })
+      );
+  }
+
+  resetPassword(data: any, token: string): Observable<any> {
+    return this.httpClient
+      .post<httpResponse>(this.url + '/auth/reset-password', data, {
+        headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      })
+      .pipe(
+        tap((response) => {
+          this.toastr.success(response.message);
+          this.router.navigate(['/auth/login']);
+          localStorage.removeItem('token');
         }),
         catchError((error: HttpErrorResponse) => {
           if (error.error instanceof ErrorEvent) {
