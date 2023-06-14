@@ -23,6 +23,7 @@ import { ResetPasswordSuccessComponent } from './forgot-password/reset-password-
     LoginComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
+    ResetPasswordSuccessComponent,
   ],
 })
 export class AuthModule {}

@@ -108,7 +108,7 @@ export class AuthService {
       .pipe(
         tap((response) => {
           this.toastr.success(response.message);
-          this.router.navigate(['/auth/login']);
+          this.router.navigate(['/auth/reset-success']);
           localStorage.removeItem('token');
         }),
         catchError((error: HttpErrorResponse) => {
