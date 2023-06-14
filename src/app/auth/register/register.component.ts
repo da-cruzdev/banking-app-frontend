@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { SIGNUP } from '../store/auth.actions';
 
 @Component({
   selector: 'app-register',
@@ -12,7 +14,11 @@ export class RegisterComponent implements OnInit {
   responseMessage!: any;
   hidePassword: boolean = true;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private readonly store: Store
+  ) {}
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
@@ -41,7 +47,8 @@ export class RegisterComponent implements OnInit {
       checkPolitics: formData.checkPolitics,
     };
 
-    this.authService.signUp(data).subscribe();
+    //this.authService.signUp(data).subscribe();
+    this.store.dispatch(SIGNUP({ payload: data }));
   }
 
   togglePasswordVisibility() {
