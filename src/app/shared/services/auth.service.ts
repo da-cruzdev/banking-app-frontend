@@ -19,33 +19,14 @@ export class AuthService {
 
   constructor(
     private httpClient: HttpClient,
-    private toastr: ToastrService,
-    private router: Router
+    private readonly toastrService: ToastrService,
+    private readonly router: Router
   ) {}
 
   signUp(data: any): Observable<any> {
-    return this.httpClient
-      .post(this.url + '/auth/create', data, {
-        headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      })
-      .pipe(
-        tap((response) => {
-          console.log(response);
-          this.toastr.success('Votre compte a été crée avec succèss');
-          this.router.navigate(['/dashboard']);
-        }),
-        catchError((error: HttpErrorResponse) => {
-          if (error.error instanceof ErrorEvent) {
-            this.toastr.error(
-              "Une erreur s'est produite. Veuillez réessayer.",
-              'Erreur'
-            );
-          } else {
-            this.toastr.error(error.error.error, 'Erreur');
-          }
-          return throwError(error);
-        })
-      );
+    return this.httpClient.post(this.url + '/auth/create', data, {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+    });
   }
 
   login(data: any): Observable<any> {
@@ -56,19 +37,21 @@ export class AuthService {
       .pipe(
         tap((response) => {
           console.log(response);
-          this.toastr.success('Vous êtes connecté a votre compte avec succès');
+          this.toastrService.success(
+            'Vous êtes connecté a votre compte avec succès'
+          );
           this.router.navigate(['/dashboard']);
         }),
         catchError((error: HttpErrorResponse) => {
           if (error.error instanceof ErrorEvent) {
-            this.toastr.error(
+            this.toastrService.error(
               "Une erreur s'est produite. Veuillez réessayer.",
               'Erreur'
             );
           } else {
-            this.toastr.error(error.error.error, 'Erreur');
+            this.toastrService.error(error.error.error, 'Erreur');
           }
-          return throwError(error);
+          return throwError(() => error);
         })
       );
   }
@@ -83,19 +66,19 @@ export class AuthService {
           console.log(response);
           const token = response.token;
           if (token) localStorage.setItem('token', token);
-          this.toastr.success(response.message);
+          this.toastrService.success(response.message);
           this.router.navigate(['/auth/account/reset-password']);
         }),
         catchError((error: HttpErrorResponse) => {
           if (error.error instanceof ErrorEvent) {
-            this.toastr.error(
+            this.toastrService.error(
               "Une erreur s'est produite. Veuillez réessayer.",
               'Erreur'
             );
           } else {
-            this.toastr.error(error.error.error, 'Erreur');
+            this.toastrService.error(error.error.error, 'Erreur');
           }
-          return throwError(error);
+          return throwError(() => error);
         })
       );
   }
@@ -107,20 +90,20 @@ export class AuthService {
       })
       .pipe(
         tap((response) => {
-          this.toastr.success(response.message);
+          this.toastrService.success(response.message);
           this.router.navigate(['/auth/reset-success']);
           localStorage.removeItem('token');
         }),
         catchError((error: HttpErrorResponse) => {
           if (error.error instanceof ErrorEvent) {
-            this.toastr.error(
+            this.toastrService.error(
               "Une erreur s'est produite. Veuillez réessayer.",
               'Erreur'
             );
           } else {
-            this.toastr.error(error.error.error, 'Erreur');
+            this.toastrService.error(error.error.error, 'Erreur');
           }
-          return throwError(error);
+          return throwError(() => error);
         })
       );
   }

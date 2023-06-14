@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { GlobalConstants } from 'src/app/shared/constants/global-constants';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
