@@ -1,59 +1,101 @@
 <section class="home-section">
-    <div class="row">
-        <div class="col-md-6">
-            <img src="../../../assets/images/background-image.jpg" alt="" class="back-image">
-        </div>
-
-        <div class="col-md-6">
-            <div class="container">
-                <img src="../../../assets/images/Group 5.png" alt="" class="site-logo">
-                <form novalidate class="form-container" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-                    <h3 class="form-title">Création de compte</h3>
-                    <div class="row ">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Nom d'utilisateur</mat-label>
-                            <input matInput placeholder="Nom" formControlName="name">
-                            <mat-icon matSuffix
-                                [ngClass]="{ 'valid-icon': isControlValid('name'), 'invalid-icon': isControlInvalid('name') }">check_circle</mat-icon>
-
-                            <mat-error *ngIf="hasControlError('name', 'required')">Le
-                                nom est requis</mat-error>
-                            <mat-error *ngIf="hasControlError('name', 'minlength')">Le nom doit avoir au
-                                moins 3 caratères</mat-error>
-                        </mat-form-field>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Email</mat-label>
-                            <input matInput placeholder="Email" formControlName="email">
-                            <mat-icon matSuffix
-                                [ngClass]="{ 'valid-icon': isControlValid('email'), 'invalid-icon': isControlInvalid('email') }">check_circle</mat-icon>
-
-                            <mat-error *ngIf="hasControlError('email', 'required')">L'email est
-                                requis</mat-error>
-                            <mat-error *ngIf="hasControlError('email', 'pattern')">L'email n'est pas
-                                valide</mat-error>
-                        </mat-form-field>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Mot de passe</mat-label>
-                            <input matInput placeholder="Mot de passe" [type]=" hidePassword ? 'password' : 'text' "
-                                formControlName="password">
-                            <mat-icon matSuffix (click)="togglePasswordVisibility()">
-                                {{ hidePassword ? 'visibility_off' : 'visibility' }}
-                            </mat-icon>
-                            <mat-error *ngIf="hasControlError('password', 'required')">Le
-                                mot de passe est requis</mat-error>
-                            <mat-error *ngIf="hasControlError('password', 'pattern')">Le
-                                mot de passe doit avoir au moins 8 caractères</mat-error>
-                        </mat-form-field>
-                        <mat-checkbox formControlName="checkPolitics">J'accepte les politiques
-                            de
-                            confidentialité</mat-checkbox>
-                        <button mat-raised-button color="primary" class="mt-5" [disabled]="registerForm.invalid">Je crée
-                            mon compte</button>
-                    </div>
-                    <p class="link-text mt-4" routerLink="/auth/login">Se connecter à mon compte</p>
-                </form>
-            </div>
-        </div>
+  <div class="row">
+    <div class="col-md-6">
+      <img
+        src="../../../assets/images/background-image.jpg"
+        alt=""
+        class="back-image"
+      />
     </div>
 
+    <div class="col-md-6">
+      <div class="container">
+        <img
+          src="../../../assets/images/Group 5.png"
+          alt=""
+          class="site-logo"
+        />
+        <form
+          novalidate
+          class="form-container"
+          [formGroup]="registerForm"
+          (ngSubmit)="onSubmit()"
+        >
+          <h3 class="form-title">Création de compte</h3>
+          <div class="row">
+            <mat-form-field appearance="outline">
+              <mat-label>Nom d'utilisateur</mat-label>
+              <input matInput placeholder="Nom" formControlName="name" />
+              <mat-icon
+                matSuffix
+                [ngClass]="{
+                  'valid-icon': isControlValid('name'),
+                  'invalid-icon': isControlInvalid('name')
+                }"
+                >check_circle</mat-icon
+              >
+
+              <mat-error *ngIf="hasControlError('name', 'required')"
+                >Le nom est requis</mat-error
+              >
+              <mat-error *ngIf="hasControlError('name', 'minlength')"
+                >Le nom doit avoir au moins 3 caratères</mat-error
+              >
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput placeholder="Email" formControlName="email" />
+              <mat-icon
+                matSuffix
+                [ngClass]="{
+                  'valid-icon': isControlValid('email'),
+                  'invalid-icon': isControlInvalid('email')
+                }"
+                >check_circle</mat-icon
+              >
+
+              <mat-error *ngIf="hasControlError('email', 'required')"
+                >L'email est requis</mat-error
+              >
+              <mat-error *ngIf="hasControlError('email', 'pattern')"
+                >L'email n'est pas valide</mat-error
+              >
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Mot de passe</mat-label>
+              <input
+                matInput
+                placeholder="Mot de passe"
+                [type]="hidePassword ? 'password' : 'text'"
+                formControlName="password"
+              />
+              <mat-icon matSuffix (click)="togglePasswordVisibility()">
+                {{ hidePassword ? "visibility_off" : "visibility" }}
+              </mat-icon>
+              <mat-error *ngIf="hasControlError('password', 'required')"
+                >Le mot de passe est requis</mat-error
+              >
+              <mat-error *ngIf="hasControlError('password', 'pattern')"
+                >Le mot de passe doit avoir au moins 8 caractères</mat-error
+              >
+            </mat-form-field>
+            <mat-checkbox formControlName="checkPolitics"
+              >J'accepte les politiques de confidentialité</mat-checkbox
+            >
+            <button
+              mat-raised-button
+              color="primary"
+              class="submit-button mt-5"
+              [disabled]="registerForm.invalid"
+            >
+              Je crée mon compte
+            </button>
+          </div>
+          <p class="link-text mt-4" routerLink="/auth/login">
+            Se connecter à mon compte
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
 </section>

@@ -1,49 +1,87 @@
 <section class="home-section">
-    <div class="row">
-        <div class="col-md-6">
-            <img src="../../../assets/images/background-image.jpg" alt="" class="back-image">
-        </div>
-
-        <div class="col-md-6">
-            <div class="container">
-                <img src="../../../assets/images/Group 5.png" alt="" class="site-logo">
-                <form novalidate class="form-container" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                    <h3 class="form-title">Connexion au compte</h3>
-                    <div class="row ">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Email</mat-label>
-                            <input matInput placeholder="Email" formControlName="email">
-                            <mat-icon matSuffix
-                                [ngClass]="{ 'valid-icon': isControlValid('email'), 'invalid-icon': isControlInvalid('email') }">check_circle</mat-icon>
-
-                            <mat-error *ngIf="hasControlError('email', 'required')">L'email est
-                                requis</mat-error>
-                            <mat-error *ngIf="hasControlError('email', 'pattern')">L'email n'est pas
-                                valide</mat-error>
-                        </mat-form-field>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Mot de passe</mat-label>
-                            <input matInput placeholder="Mot de passe" [type]=" hidePassword ? 'password' : 'text' "
-                                formControlName="password">
-                            <mat-icon matSuffix (click)="togglePasswordVisibility()">
-                                {{ hidePassword ? 'visibility_off' : 'visibility' }}
-                            </mat-icon>
-                            <mat-error *ngIf="hasControlError('password', 'required')">Le
-                                mot de passe est requis</mat-error>
-                            <mat-error *ngIf="hasControlError('password', 'pattern')">Le
-                                mot de passe est invalide</mat-error>
-                        </mat-form-field>
-                        <button mat-raised-button color="primary" class="mt-5" [disabled]="loginForm.invalid">Je me
-                            connecte</button>
-                    </div>
-                    <div class="link-container">
-                        <p class="link-text mt-4" routerLink="/auth/account/forgot-password">Mot de passe oublié ?</p>
-                        <p class="link-text mt-4 ms-5" routerLink="/auth">Créer un compte</p>
-
-                    </div>
-                </form>
-            </div>
-        </div>
+  <div class="row">
+    <div class="col-md-6">
+      <img
+        src="../../../assets/images/background-image.jpg"
+        alt=""
+        class="back-image"
+      />
     </div>
 
+    <div class="col-md-6">
+      <div class="container">
+        <img
+          src="../../../assets/images/Group 5.png"
+          alt=""
+          class="site-logo"
+        />
+        <form
+          novalidate
+          class="form-container"
+          [formGroup]="loginForm"
+          (ngSubmit)="onSubmit()"
+        >
+          <h3 class="form-title">Connexion au compte</h3>
+          <div class="row">
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput placeholder="Email" formControlName="email" />
+              <mat-icon
+                matSuffix
+                [ngClass]="{
+                  'valid-icon': isControlValid('email'),
+                  'invalid-icon': isControlInvalid('email')
+                }"
+                >check_circle</mat-icon
+              >
+
+              <mat-error *ngIf="hasControlError('email', 'required')"
+                >L'email est requis</mat-error
+              >
+              <mat-error *ngIf="hasControlError('email', 'pattern')"
+                >L'email n'est pas valide</mat-error
+              >
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Mot de passe</mat-label>
+              <input
+                matInput
+                placeholder="Mot de passe"
+                [type]="hidePassword ? 'password' : 'text'"
+                formControlName="password"
+              />
+              <mat-icon matSuffix (click)="togglePasswordVisibility()">
+                {{ hidePassword ? "visibility_off" : "visibility" }}
+              </mat-icon>
+              <mat-error *ngIf="hasControlError('password', 'required')"
+                >Le mot de passe est requis</mat-error
+              >
+              <mat-error *ngIf="hasControlError('password', 'pattern')"
+                >Le mot de passe est invalide</mat-error
+              >
+            </mat-form-field>
+            <button
+              mat-raised-button
+              color="primary"
+              class="submit-button mt-5"
+              [disabled]="loginForm.invalid"
+            >
+              Je me connecte
+            </button>
+          </div>
+          <div class="link-container">
+            <p
+              class="link-text mt-4"
+              routerLink="/auth/account/forgot-password"
+            >
+              Mot de passe oublié ?
+            </p>
+            <p class="link-text mt-4 ms-5" routerLink="/auth">
+              Créer un compte
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </section>
