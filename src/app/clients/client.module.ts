@@ -6,9 +6,10 @@ import { ClientRoutingModule } from './client-routing.module';
 import { TransationsListComponent } from './components/transations-list/transations-list.component';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { FilterTransactionListComponent } from './components/filter-transaction-list/filter-transaction-list.component';
+import { AccountComponent } from './components/account/account.component';
 
 @NgModule({
-  declarations: [DashboardComponent, TransationsListComponent, UserInfoComponent, FilterTransactionListComponent],
+  declarations: [DashboardComponent, TransationsListComponent, UserInfoComponent, FilterTransactionListComponent, AccountComponent],
   imports: [CommonModule, ClientRoutingModule, SharedModule],
   exports: [DashboardComponent],
 })
