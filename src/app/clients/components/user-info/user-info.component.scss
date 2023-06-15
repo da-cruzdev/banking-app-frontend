@@ -1,0 +1,63 @@
+.user {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  &__initial {
+    width: 20rem;
+    height: 20rem;
+    border-radius: 50%;
+    background-color: #0079ff;
+    opacity: 0.2;
+    margin-top: 8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &-letter {
+      font-size: 10rem;
+      color: #fff;
+    }
+  }
+
+  &__name {
+    font-size: 2.5rem;
+    margin-top: 2.4rem;
+  }
+
+  &__email {
+    margin-top: 0.4rem;
+    font-size: 1.5rem;
+  }
+
+  &__edit-btn {
+    width: 12rem;
+    height: 2.8rem;
+    background: rgba(255, 0, 96, 0.1);
+    border-radius: 2rem;
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    &-text {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 1.2rem;
+      line-height: 1rem;
+      color: #ff0060;
+      margin-right: 2rem;
+    }
+
+    &-icon {
+      font-size: 1.5rem;
+      margin-left: 1rem;
+      margin-top: 0.6rem;
+      color: #ff0060;
+      position: absolute;
+      right: 0;
+    }
+  }
+}
