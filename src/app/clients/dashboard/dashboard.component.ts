@@ -5,14 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent {
-  displayedColumns: string[] = [
-    'account',
-    'transactionType',
-    'amount',
-    'accountReceiver',
-    'createdAt',
-    'status',
-  ];
-  dataSource = [];
-}
+export class DashboardComponent {}
