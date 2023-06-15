@@ -1,1 +1,38 @@
-<p>filter-transaction-list works!</p>
+<p>
+  <mat-toolbar class="content">
+    <span class="content__name">Mes transactions</span>
+
+    <mat-form-field appearance="outline" class="mat-select-content--1">
+      <mat-label>Type de compte</mat-label>
+      <mat-select>
+        <mat-option></mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="mat-select-content--2">
+      <mat-label>Statut</mat-label>
+      <mat-select>
+        <mat-option></mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="mat-select-content--3">
+      <mat-label>Calendrier</mat-label>
+      <input matInput [matDatepicker]="picker" />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="mat-select-content--4">
+      <mat-label>Rechercher par bénficiaire ou par montant</mat-label>
+      <input matInput />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="mat-select-content--5">
+      <mat-label>sélectionner une action</mat-label>
+      <mat-select>
+        <mat-option></mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-toolbar>
+</p>

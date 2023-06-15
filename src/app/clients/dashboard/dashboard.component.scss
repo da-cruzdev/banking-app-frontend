@@ -1,44 +1,5 @@
-.dash-container {
-  width: 100%;
-  height: 100vh;
-  //   margin: 10px;
-  border: 1px solid #555;
-}
-
 .left-side {
-  width: 26vw;
-  border-right-color: #0079ff;
-}
-
-.content {
-  background-color: #fff;
-
-  &__toolbar {
-    height: 12rem;
-
-    &-title {
-      font-size: 1.7rem;
-      font-weight: 500;
-      margin-right: 4rem;
-    }
-  }
-
-  &__select {
-    background-color: #040404;
-    &--1 {
-      width: 182px;
-      height: 50px;
-    }
-    &--2 {
-      width: 110px;
-      height: 50px;
-    }
-
-    &--3 {
-      width: 160px;
-      height: 50px;
-    }
-  }
+  border-right: 1px solid #0079ff;
 }
 
 //////// LEFT SIDE////////
