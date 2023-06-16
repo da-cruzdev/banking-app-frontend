@@ -18,7 +18,8 @@ export class AuthEffects {
           map((response) => {
             this.toastrService.success('Votre compte a été crée avec succèss');
             this.router.navigate(['/dashboard']);
-            localStorage.setItem('@token', response.user.token);
+            if (response.user.token)
+              localStorage.setItem('@token', response.user.token);
             return AuthActions.SIGNUP_SUCCESS({
               payload: response.user,
             });

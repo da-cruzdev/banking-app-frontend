@@ -7,10 +7,26 @@ import { TransationsListComponent } from './components/transations-list/transati
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { FilterTransactionListComponent } from './components/filter-transaction-list/filter-transaction-list.component';
 import { AccountComponent } from './components/account/account.component';
+import { StoreModule } from '@ngrx/store';
+import { clientFeature } from './store/client.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { ClientEffects } from './store/client.effects';
 
 @NgModule({
-  declarations: [DashboardComponent, TransationsListComponent, UserInfoComponent, FilterTransactionListComponent, AccountComponent],
-  imports: [CommonModule, ClientRoutingModule, SharedModule],
+  declarations: [
+    DashboardComponent,
+    TransationsListComponent,
+    UserInfoComponent,
+    FilterTransactionListComponent,
+    AccountComponent,
+  ],
+  imports: [
+    CommonModule,
+    ClientRoutingModule,
+    SharedModule,
+    StoreModule.forFeature(clientFeature),
+    EffectsModule.forFeature([ClientEffects]),
+  ],
   exports: [DashboardComponent],
 })
 export class ClientModule {}
