@@ -10,6 +10,10 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { httpResponse } from '../interfaces/http-response.interface';
+import {
+  UserDataResponse,
+  UserSignupData,
+} from '../interfaces/user.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -23,13 +27,17 @@ export class AuthService {
     private readonly router: Router
   ) {}
 
-  signUp(data: any): Observable<any> {
-    return this.httpClient.post(this.url + '/auth/create', data, {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-    });
+  signUp(data: UserSignupData) {
+    return this.httpClient.post<{ user: UserDataResponse }>(
+      this.url + '/auth/signup',
+      data,
+      {
+        headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      }
+    );
   }
 
-  login(data: any): Observable<any> {
+  login(data: any) {
     return this.httpClient
       .post(this.url + '/auth/login', data, {
         headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -56,7 +64,7 @@ export class AuthService {
       );
   }
 
-  verifyForgotPass(data: any): Observable<any> {
+  verifyForgotPass(data: any) {
     return this.httpClient
       .post<httpResponse>(this.url + '/auth/forget-password', data, {
         headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -83,7 +91,7 @@ export class AuthService {
       );
   }
 
-  resetPassword(data: any, token: string): Observable<any> {
+  resetPassword(data: any, token: string) {
     return this.httpClient
       .post<httpResponse>(this.url + '/auth/reset-password', data, {
         headers: new HttpHeaders().set('Content-Type', 'application/json'),

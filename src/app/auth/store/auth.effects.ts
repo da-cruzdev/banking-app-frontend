@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import * as AuthActions from './auth.actions';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { StorageMap } from '@ngx-pwa/local-storage';
 
 @Injectable()
 export class AuthEffects {
@@ -15,11 +16,12 @@ export class AuthEffects {
       exhaustMap(({ payload }) =>
         this.authService.signUp(payload).pipe(
           map((response) => {
-            console.log(response);
-
             this.toastrService.success('Votre compte a été crée avec succèss');
             this.router.navigate(['/dashboard']);
-            return AuthActions.SIGNUP_SUCCESS();
+            localStorage.setItem('@token', response.user.token);
+            return AuthActions.SIGNUP_SUCCESS({
+              payload: response.user,
+            });
           }),
           catchError((error) => {
             if (error.error instanceof ErrorEvent) {
@@ -41,6 +43,7 @@ export class AuthEffects {
     private readonly actions$: Actions,
     private readonly authService: AuthService,
     private readonly toastrService: ToastrService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly storage: StorageMap
   ) {}
 }

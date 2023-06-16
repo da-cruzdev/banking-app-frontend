@@ -1,9 +1,10 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 
 import * as AuthActions from './auth.actions';
+import { UserDataResponse } from 'src/app/shared/interfaces/user.interfaces';
 
 interface State {
-  user: unknown;
+  user: UserDataResponse | null;
   loading: boolean;
 }
 
@@ -20,8 +21,13 @@ export const authFeature = createFeature({
       ...state,
       loading: true,
     })),
-    on(AuthActions.SIGNUP_FAILED, AuthActions.SIGNUP_SUCCESS, (state) => ({
+    on(AuthActions.SIGNUP_FAILED, (state) => ({
       ...state,
+      loading: false,
+    })),
+    on(AuthActions.SIGNUP_SUCCESS, (state, { payload }) => ({
+      ...state,
+      user: payload,
       loading: false,
     }))
   ),
