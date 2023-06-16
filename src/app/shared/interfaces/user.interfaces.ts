@@ -12,8 +12,9 @@ export interface UserLoginData {
 export interface UserDataResponse {
   id: number;
   name: string;
+  slug: string;
   email: string;
-  token: string;
-  createdAt: Date;
-  updatedAt: Date;
+  token?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

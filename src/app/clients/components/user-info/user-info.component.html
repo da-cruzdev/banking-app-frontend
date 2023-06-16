@@ -1,9 +1,12 @@
 <div class="user">
   <div class="user__initial">
-    <span class="user__initial-letter">SM</span>
+    <span class="user__initial-letter"> {{ userData?.slug }} </span>
   </div>
-  <div class="user__name"><span class="fw-bold">SORO</span> Moise</div>
-  <div class="user__email">Email: soromoise@gmail.com</div>
+  <div class="user__name">
+    <span class="fw-bold"> {{ userData?.name?.split(' ')?.[0] }} </span>
+    {{ userData?.name?.split(' ')?.[1] }}
+  </div>
+  <div class="user__email">Email: {{ userData?.email }}</div>
   <div class="user__edit-btn">
     <span class="user__edit-btn-text"> Editer le profil </span>
     <mat-icon class="user__edit-btn-icon">create</mat-icon>
