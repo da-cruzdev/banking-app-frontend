@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { LOGIN } from '../store/auth.actions';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,7 @@ export class LoginComponent implements OnInit {
   responseMessage!: any;
   hidePassword: boolean = true;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {}
+  constructor(private fb: FormBuilder, private readonly store: Store) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -34,7 +36,7 @@ export class LoginComponent implements OnInit {
       password: formData.password,
     };
 
-    this.authService.login(data).subscribe();
+    this.store.dispatch(LOGIN({ payload: data }));
   }
 
   togglePasswordVisibility() {

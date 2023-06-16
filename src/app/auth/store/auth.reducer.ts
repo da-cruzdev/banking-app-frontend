@@ -2,15 +2,18 @@ import { createFeature, createReducer, on } from '@ngrx/store';
 
 import * as AuthActions from './auth.actions';
 import { UserDataResponse } from 'src/app/shared/interfaces/user.interfaces';
+import { state } from '@angular/animations';
 
 interface State {
   user: UserDataResponse | null;
   loading: boolean;
+  token: string;
 }
 
 const initialState: State = {
   user: null,
   loading: false,
+  token: '',
 };
 
 export const authFeature = createFeature({
@@ -29,8 +32,22 @@ export const authFeature = createFeature({
       ...state,
       user: payload,
       loading: false,
+    })),
+    on(AuthActions.LOGIN, (state) => ({
+      ...state,
+      loading: true,
+    })),
+    on(AuthActions.LOGIN_FAILED, (state) => ({
+      ...state,
+      loading: true,
+    })),
+    on(AuthActions.LOGIN_SUCCESS, (state, { token }) => ({
+      ...state,
+      token: token,
+      loading: true,
     }))
   ),
 });
 
-export const { name, reducer, selectLoading, selectUser } = authFeature;
+export const { name, reducer, selectLoading, selectUser, selectToken } =
+  authFeature;

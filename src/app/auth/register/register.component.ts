@@ -14,11 +14,7 @@ export class RegisterComponent implements OnInit {
   responseMessage!: any;
   hidePassword: boolean = true;
 
-  constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private readonly store: Store
-  ) {}
+  constructor(private fb: FormBuilder, private readonly store: Store) {}
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({

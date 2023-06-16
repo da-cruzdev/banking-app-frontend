@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { httpResponse } from '../interfaces/http-response.interface';
 import {
   UserDataResponse,
+  UserLoginData,
   UserSignupData,
 } from '../interfaces/user.interfaces';
 
@@ -37,31 +38,14 @@ export class AuthService {
     );
   }
 
-  login(data: any) {
-    return this.httpClient
-      .post(this.url + '/auth/login', data, {
+  login(data: UserLoginData) {
+    return this.httpClient.post<{ token: string }>(
+      this.url + '/auth/login',
+      data,
+      {
         headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      })
-      .pipe(
-        tap((response) => {
-          console.log(response);
-          this.toastrService.success(
-            'Vous êtes connecté a votre compte avec succès'
-          );
-          this.router.navigate(['/dashboard']);
-        }),
-        catchError((error: HttpErrorResponse) => {
-          if (error.error instanceof ErrorEvent) {
-            this.toastrService.error(
-              "Une erreur s'est produite. Veuillez réessayer.",
-              'Erreur'
-            );
-          } else {
-            this.toastrService.error(error.error.error, 'Erreur');
-          }
-          return throwError(() => error);
-        })
-      );
+      }
+    );
   }
 
   verifyForgotPass(data: any) {

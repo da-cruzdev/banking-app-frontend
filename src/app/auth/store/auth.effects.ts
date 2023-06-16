@@ -24,15 +24,31 @@ export class AuthEffects {
             });
           }),
           catchError((error) => {
-            if (error.error instanceof ErrorEvent) {
-              this.toastrService.error(
-                "Une erreur s'est produite. Veuillez réessayer.",
-                'Erreur'
-              );
-            } else {
-              this.toastrService.error(error.error.error, 'Erreur');
-            }
+            this.toastrService.error(error.error.error, 'Erreur');
             return of(AuthActions.SIGNUP_FAILED());
+          })
+        )
+      )
+    )
+  );
+
+  login$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.LOGIN),
+      exhaustMap(({ payload }) =>
+        this.authService.login(payload).pipe(
+          map((response) => {
+            this.toastrService.success(
+              'Vous êtes connecté a votre compte avec succès'
+            );
+            this.router.navigate(['/dashboard']);
+            localStorage.setItem('@token', response.token);
+
+            return AuthActions.LOGIN_SUCCESS({ token: response.token });
+          }),
+          catchError((error) => {
+            this.toastrService.error(error.error.error, 'Erreur');
+            return of(AuthActions.LOGIN_FAILED());
           })
         )
       )
