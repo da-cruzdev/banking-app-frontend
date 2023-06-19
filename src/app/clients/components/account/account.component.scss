@@ -1,6 +1,6 @@
 .container-fluid {
   padding: 2rem;
-  width: 90%;
+  width: 95%;
 }
 .account {
   display: flex;
@@ -10,6 +10,10 @@
   &__title {
     font-size: 1.8rem;
     font-weight: 500;
+  }
+
+  &__type {
+    font-size: 1.3rem;
   }
 
   &__infos {
@@ -38,7 +42,7 @@
 }
 
 .p-title {
-  font-size: 1rem;
+  font-size: 0.9rem;
   margin-bottom: -5px;
 }
 
@@ -48,4 +52,8 @@
 
 mat-icon {
   margin-right: 1.3rem;
+}
+
+.click-btn {
+  transform: rotate(90deg);
 }
