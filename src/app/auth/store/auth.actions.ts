@@ -9,7 +9,7 @@ export const SIGNUP = createAction(
   '[Auth] Signup',
   props<{ payload: UserSignupData }>()
 );
-export const SIGNUP_FAILED = createAction('[Auth] Login failed');
+export const SIGNUP_FAILED = createAction('[Auth] Signup failed');
 
 export const SIGNUP_SUCCESS = createAction(
   '[Auth] Signup success',

@@ -1,29 +1,31 @@
 .content {
-  height: 10rem;
+  height: 9rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background: #f5f5f5 !important;
-  padding: 5rem;
+  font-size: 0.5rem;
+  padding: 3rem;
 
   &__name {
-    font-weight: 500;
+    font-weight: 550;
+    font-size: 1.8rem;
   }
 }
 
 ::ng-deep .mat-select-content {
   &--1 {
-    width: 16.8rem !important;
+    width: 14rem !important;
     margin-top: 2rem;
   }
 
   &--2 {
-    width: 11rem;
+    width: 9.2rem;
     margin-top: 2rem;
   }
 
   &--3 {
-    width: 13rem;
+    width: 11rem;
     margin-top: 2rem;
   }
 
@@ -32,11 +34,20 @@
   }
 
   &--5 {
+    width: 16rem !important;
     margin-top: 2rem;
   }
 }
 
 ::ng-deep mat-label {
-  font-size: 1.3rem;
+  font-size: 1rem;
   padding: 0px;
+}
+
+mat-form-field {
+  padding: 0 !important;
+}
+
+mat-form-label {
+  padding: 0 !important;
 }

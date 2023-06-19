@@ -1,1 +1,22 @@
-<p>account works!</p>
+<div class="container-fluid">
+  <div class="account">
+    <p class="account__title">Mes comptes</p>
+    <div class="account__infos">
+      <div class="account__type">Compte Courant</div>
+      <div class="account__number">
+        <p class="p-title">Numéro de compte</p>
+        <p class="p-content">1234 5678 989</p>
+      </div>
+
+      <div class="account__ammount">
+        <p class="p-title">Solde disponible</p>
+        <p class="p-content" *ngIf="showBalance">82.098 XOF</p>
+        <p class="p-content" *ngIf="!showBalance">..........</p>
+      </div>
+      <mat-icon matSuffix (click)="toggleBalanceVisibility()">
+        {{ showBalance ? "visibility_off" : "visibility" }}
+      </mat-icon>
+      <button mat-></button>
+    </div>
+  </div>
+</div>
