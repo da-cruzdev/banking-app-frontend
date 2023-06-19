@@ -16,9 +16,15 @@
       <mat-icon matSuffix (click)="toggleBalanceVisibility()">
         {{ showBalance ? "visibility_off" : "visibility" }}
       </mat-icon>
-      <button mat-icon-button (click)="openDialog()">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon class="click-btn">more_vert</mat-icon>
       </button>
+      <mat-menu #menu="matMenu" xPosition="after">
+        <button mat-menu-item class="menu">Ajouter un compte épargne</button>
+        <button mat-menu-item matIconSuffix class="menu">
+          Ajouter un compte bloqué
+        </button>
+      </mat-menu>
     </div>
   </div>
 </div>

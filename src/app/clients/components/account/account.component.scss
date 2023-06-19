@@ -57,3 +57,13 @@ mat-icon {
 .click-btn {
   transform: rotate(90deg);
 }
+
+.menu {
+  font-size: 1rem !important;
+  position: relative;
+
+  &__icon {
+    // position: absolute;
+    right: 0;
+  }
+}

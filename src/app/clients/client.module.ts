@@ -11,7 +11,6 @@ import { StoreModule } from '@ngrx/store';
 import { clientFeature } from './store/client.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { ClientEffects } from './store/client.effects';
-import { SubaccountCreatorComponent } from './components/subaccount-creator/subaccount-creator.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +19,6 @@ import { SubaccountCreatorComponent } from './components/subaccount-creator/suba
     UserInfoComponent,
     FilterTransactionListComponent,
     AccountComponent,
-    SubaccountCreatorComponent,
   ],
   imports: [
     CommonModule,
