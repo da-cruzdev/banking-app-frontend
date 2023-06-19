@@ -6,6 +6,7 @@ export interface AccountsDataResponse {
   currency?: string;
   parentId?: string;
   userId: number;
+  accountType: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

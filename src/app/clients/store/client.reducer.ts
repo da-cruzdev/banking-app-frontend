@@ -7,14 +7,14 @@ interface State {
   user: UserDataResponse | null;
   loading: boolean;
   error: string | null;
-  account: AccountsDataResponse | null;
+  accounts: AccountsDataResponse | null;
 }
 
 const initialState: State = {
   user: null,
   loading: false,
   error: null,
-  account: null,
+  accounts: null,
 };
 
 export const clientFeature = createFeature({
@@ -45,11 +45,17 @@ export const clientFeature = createFeature({
     })),
     on(ClientActions.getUserAccounts_success, (state, { payload }) => ({
       ...state,
-      account: payload,
+      accounts: payload,
       loading: false,
     }))
   ),
 });
 
-export const { name, reducer, selectLoading, selectUser, selectError } =
-  clientFeature;
+export const {
+  name,
+  reducer,
+  selectLoading,
+  selectUser,
+  selectError,
+  selectAccounts,
+} = clientFeature;

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { GetUser, getUserAccounts } from '../store/client.actions';
-import { selectUser } from '../store/client.reducer';
+import { selectAccounts, selectUser } from '../store/client.reducer';
 import { UserDataResponse } from 'src/app/shared/interfaces/user.interfaces';
 import { Observable } from 'rxjs';
 import { AccountsDataResponse } from 'src/app/shared/interfaces/accounts.interfaces';
@@ -13,7 +13,7 @@ import { AccountsDataResponse } from 'src/app/shared/interfaces/accounts.interfa
 })
 export class DashboardComponent implements OnInit {
   userInfo$!: Observable<UserDataResponse | null>;
-  userAccounts$!: Observable<AccountsDataResponse>;
+  userAccounts$!: Observable<AccountsDataResponse | null>;
 
   constructor(private readonly store: Store) {}
 
@@ -27,5 +27,6 @@ export class DashboardComponent implements OnInit {
         this.store.dispatch(getUserAccounts({ id: id.toString() }));
       }
     });
+    this.userAccounts$ = this.store.select(selectAccounts);
   }
 }

@@ -37,8 +37,13 @@ export class ClientEffects {
       exhaustMap(({ id }) =>
         this.clientService.getUserAccounts(id).pipe(
           map((response) => {
-            console.log(response);
-            return ClientActions.getUserAccounts_success({ payload: response });
+            const ibanAccount = response.iban.split('-');
+            const account = {
+              ...response,
+              iban: ibanAccount[0] + ibanAccount[1],
+            };
+
+            return ClientActions.getUserAccounts_success({ payload: account });
           }),
           catchError((error) => {
             console.log(error);
