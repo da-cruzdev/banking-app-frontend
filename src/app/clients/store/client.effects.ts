@@ -3,14 +3,13 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as ClientActions from './client.actions';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { StorageMap } from '@ngx-pwa/local-storage';
 import { ClientService } from '../services/client.service';
 import { catchError, exhaustMap, map } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 @Injectable()
 export class ClientEffects {
-  signup$ = createEffect(() =>
+  getUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ClientActions.GetUser),
       exhaustMap(() =>
@@ -32,33 +31,28 @@ export class ClientEffects {
     )
   );
 
-  //   login$ = createEffect(() =>
-  //     this.actions$.pipe(
-  //       ofType(AuthActions.LOGIN),
-  //       exhaustMap(({ payload }) =>
-  //         this.authService.login(payload).pipe(
-  //           map((response) => {
-  //             this.toastrService.success(
-  //               'Vous êtes connecté a votre compte avec succès'
-  //             );
-  //             this.router.navigate(['/dashboard']);
-  //             localStorage.setItem('@token', response.token);
+  getUserAccounts$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ClientActions.getUserAccounts),
+      exhaustMap(({ id }) =>
+        this.clientService.getUserAccounts(id).pipe(
+          map((response) => {
+            console.log(response);
+            return ClientActions.getUserAccounts_success({ payload: response });
+          }),
+          catchError((error) => {
+            console.log(error);
 
-  //             return AuthActions.LOGIN_SUCCESS({ token: response.token });
-  //           }),
-  //           catchError((error) => {
-  //             this.toastrService.error(error.error.error, 'Erreur');
-  //             return of(AuthActions.LOGIN_FAILED());
-  //           })
-  //         )
-  //       )
-  //     )
-  //   );
+            return of(ClientActions.getUserAccounts_failed({ error: error }));
+          })
+        )
+      )
+    )
+  );
 
   constructor(
     private readonly actions$: Actions,
     private readonly toastrService: ToastrService,
-    private readonly router: Router,
     private readonly clientService: ClientService
   ) {}
 }

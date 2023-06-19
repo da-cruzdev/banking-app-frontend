@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { EMPTY, of } from 'rxjs';
+import { of } from 'rxjs';
 import { map, exhaustMap, catchError } from 'rxjs/operators';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import * as AuthActions from './auth.actions';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { StorageMap } from '@ngx-pwa/local-storage';
 
 @Injectable()
 export class AuthEffects {
@@ -60,7 +59,6 @@ export class AuthEffects {
     private readonly actions$: Actions,
     private readonly authService: AuthService,
     private readonly toastrService: ToastrService,
-    private readonly router: Router,
-    private readonly storage: StorageMap
+    private readonly router: Router
   ) {}
 }
