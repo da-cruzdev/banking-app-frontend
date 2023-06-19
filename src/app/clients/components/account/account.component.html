@@ -2,7 +2,9 @@
   <div class="account">
     <p class="account__title">Mes comptes</p>
     <div class="account__infos">
-      <div class="account__type">Compte Courant</div>
+      <div class="account__type">
+        {{ (accountData$ | async)?.accountType | accountType }}
+      </div>
       <div class="account__number">
         <p class="p-title">Numéro de compte</p>
         <p class="p-content">{{ (accountData$ | async)?.iban }}</p>
