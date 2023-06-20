@@ -28,11 +28,15 @@
       <mat-label>Rechercher par bénficiaire ou par montant</mat-label>
       <input matInput />
     </mat-form-field>
-    <mat-form-field appearance="outline" class="mat-select-content--5">
-      <mat-label>sélectionner une action</mat-label>
-      <mat-select>
-        <mat-option></mat-option>
-      </mat-select>
-    </mat-form-field>
+    <button mat-flat-button [matMenuTriggerFor]="menu" class="transac-btn">
+      Sélectionner une action
+      <mat-icon matIconSuffix style="order: 1" class="ms-3"
+        >expand_more</mat-icon
+      >
+    </button>
+    <mat-menu #menu="matMenu" yPosition="below" xPosition="after">
+      <button mat-menu-item>Transférer</button>
+      <button mat-menu-item>Débiter</button>
+    </mat-menu>
   </mat-toolbar>
 </p>

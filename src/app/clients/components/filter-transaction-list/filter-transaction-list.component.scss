@@ -51,3 +51,16 @@ mat-form-field {
 mat-form-label {
   padding: 0 !important;
 }
+
+.transac-btn {
+  font-size: 1.2rem;
+  background-color: #0079ff !important;
+  color: #fff !important;
+  height: 5.5rem;
+  padding: 0.5rem;
+}
+
+::ng-deep mat-icon {
+  font-size: 15px !important;
+  margin-left: 2px;
+}
