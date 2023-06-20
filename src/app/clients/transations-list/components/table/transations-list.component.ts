@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-transations-list',
+  selector: 'app-transations-table',
   templateUrl: './transations-list.component.html',
   styleUrls: ['./transations-list.component.scss'],
 })
-export class TransationsListComponent {
+export class TransationsTableComponent {
   displayedColumns: string[] = [
     'account',
     'transactionType',
