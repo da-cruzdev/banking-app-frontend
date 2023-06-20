@@ -16,7 +16,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
-
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
@@ -40,6 +40,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatCardModule,
     MatDialogModule,
     MatMenuModule,
+    MatTooltipModule,
   ],
 })
 export class SharedModule {}

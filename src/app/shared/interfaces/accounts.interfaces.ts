@@ -10,3 +10,8 @@ export interface AccountsDataResponse {
   createdAt?: Date;
   updatedAt?: Date;
 }
+
+export interface createSubAccountData {
+  accountIban: string;
+  accountType: string;
+}

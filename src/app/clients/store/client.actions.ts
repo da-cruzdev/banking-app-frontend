@@ -1,5 +1,8 @@
 import { createAction, props } from '@ngrx/store';
-import { AccountsDataResponse } from 'src/app/shared/interfaces/accounts.interfaces';
+import {
+  AccountsDataResponse,
+  createSubAccountData,
+} from 'src/app/shared/interfaces/accounts.interfaces';
 import { UserDataResponse } from 'src/app/shared/interfaces/user.interfaces';
 
 export const GetUser = createAction(
@@ -28,5 +31,23 @@ export const getUserAccounts_failed = createAction(
 
 export const getUserAccounts_success = createAction(
   '[Client] getUserAccounts success',
+  props<{
+    mainAccount: AccountsDataResponse;
+    subAccounts: AccountsDataResponse[];
+  }>()
+);
+
+export const createSubAccount = createAction(
+  '[Client] createSubAccount',
+  props<{ payload: createSubAccountData }>()
+);
+
+export const createSubAccount_failed = createAction(
+  '[Client] createSubAccount failed',
+  props<{ error: string }>()
+);
+
+export const createSubAccount_success = createAction(
+  '[Client] createSubAccount success',
   props<{ payload: AccountsDataResponse }>()
 );

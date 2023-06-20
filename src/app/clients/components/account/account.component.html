@@ -1,35 +1,83 @@
-<div class="container-fluid" *ngIf="accountData$ | async">
-  <div class="account">
-    <p class="account__title">Mes comptes</p>
-    <div class="account__infos">
-      <div class="account__type">
-        {{ (accountData$ | async)?.accountType | accountType }}
-      </div>
-      <div class="account__number">
-        <p class="p-title">Numéro de compte</p>
-        <p class="p-content">{{ (accountData$ | async)?.iban }}</p>
-      </div>
-
-      <div class="account__ammount">
-        <p class="p-title">Solde disponible</p>
-        <p class="p-content" *ngIf="showBalance">
-          {{ (accountData$ | async)?.balance }}
-          {{ (accountData$ | async)?.currency }}
-        </p>
-        <p class="p-content" *ngIf="!showBalance">..........</p>
-      </div>
-      <mat-icon matSuffix (click)="toggleBalanceVisibility()">
-        {{ showBalance ? "visibility_off" : "visibility" }}
-      </mat-icon>
-      <button mat-icon-button [matMenuTriggerFor]="menu">
-        <mat-icon class="click-btn">more_vert</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu" xPosition="after">
-        <button mat-menu-item class="menu">Ajouter un compte épargne</button>
-        <button mat-menu-item matIconSuffix class="menu">
-          Ajouter un compte bloqué
-        </button>
-      </mat-menu>
+<div class="account" *ngIf="accountData$">
+  <div class="account__type">
+    {{ (accountData$ | async)?.accountType | accountType }}
+  </div>
+  <div class="account__infos">
+    <div class="account__number">
+      <p class="p-title">Numéro de compte</p>
+      <p class="p-content" matTooltip="{{ (accountData$ | async)?.iban }}">
+        {{ (accountData$ | async)?.iban | slice : 0 : 13 }}
+      </p>
     </div>
+
+    <div class="account__ammount">
+      <p class="p-title">Solde disponible</p>
+      <div class="p-content" *ngIf="showBalance">
+        {{ (accountData$ | async)?.balance }}
+        {{ (accountData$ | async)?.currency }}
+      </div>
+      <p class="p-content" *ngIf="!showBalance">..........</p>
+    </div>
+    <mat-icon matSuffix (click)="toggleBalanceVisibility()">
+      {{ showBalance ? "visibility_off" : "visibility" }}
+    </mat-icon>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon class="click-btn">more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" xPosition="after">
+      <button mat-menu-item class="menu" (click)="createSubAccount('savings')">
+        Ajouter un compte épargne
+      </button>
+      <button
+        mat-menu-item
+        matIconSuffix
+        class="menu"
+        (click)="createSubAccount('blocked')"
+      >
+        Ajouter un compte bloqué
+      </button>
+    </mat-menu>
+  </div>
+</div>
+
+<div class="account" *ngIf="subAccountData">
+  <div class="account__type">
+    {{ subAccountData.accountType | accountType }}
+  </div>
+  <div class="account__infos">
+    <div class="account__number">
+      <p class="p-title">Numéro de compte</p>
+      <p class="p-content" matTooltip="{{ subAccountData.iban }}">
+        {{ subAccountData.iban | slice : 0 : 13 }}
+      </p>
+    </div>
+
+    <div class="account__ammount">
+      <p class="p-title">Solde disponible</p>
+      <div class="p-content" *ngIf="showBalance">
+        {{ subAccountData.balance }}
+        {{ subAccountData.currency }}
+      </div>
+      <p class="p-content" *ngIf="!showBalance">..........</p>
+    </div>
+    <mat-icon matSuffix (click)="toggleBalanceVisibility()">
+      {{ showBalance ? "visibility_off" : "visibility" }}
+    </mat-icon>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon class="click-btn">more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" xPosition="after">
+      <button mat-menu-item class="menu" (click)="createSubAccount('savings')">
+        Ajouter un compte épargne
+      </button>
+      <button
+        mat-menu-item
+        matIconSuffix
+        class="menu"
+        (click)="createSubAccount('blocked')"
+      >
+        Ajouter un compte bloqué
+      </button>
+    </mat-menu>
   </div>
 </div>

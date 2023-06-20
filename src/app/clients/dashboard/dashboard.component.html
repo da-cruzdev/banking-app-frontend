@@ -2,13 +2,27 @@
   <div class="col-md-4 col-lg-4 p-0">
     <div class="left-side vh-100">
       <app-user-info [userData]="userInfo$ | async"></app-user-info>
-      <app-account [accountData$]="userAccounts$"></app-account>
+      <div class="container-fluid">
+        <div class="account">
+          <p class="account__title">Mes comptes</p>
+          <app-account
+            [accountData$]="mainAccount$"
+            (subAccountCreated)="handleSubAccountCreated($event)"
+          ></app-account>
+          <app-account
+            class="mt-3"
+            *ngFor="let account of subAccounts$ | async"
+            [subAccountData]="account"
+          >
+          </app-account>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="col-md-8 col-lg-8 p-0">
     <app-filter-transaction-list></app-filter-transaction-list>
-    <div class="container-fluid mt-5">
+    <div class="container-fluid mt-3">
       <app-transations-list></app-transations-list>
     </div>
   </div>

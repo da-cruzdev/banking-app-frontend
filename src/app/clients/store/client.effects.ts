@@ -37,18 +37,38 @@ export class ClientEffects {
       exhaustMap(({ id }) =>
         this.clientService.getUserAccounts(id).pipe(
           map((response) => {
-            const ibanAccount = response.iban.split('-');
-            const account = {
-              ...response,
-              iban: ibanAccount[0] + ibanAccount[1],
-            };
+            console.log(response);
+            return ClientActions.getUserAccounts_success({
+              mainAccount: response.mainAccount,
+              subAccounts: response.subAccounts,
+            });
+          }),
+          catchError((error) => {
+            return of(
+              ClientActions.getUserAccounts_failed({ error: error.error.error })
+            );
+          })
+        )
+      )
+    )
+  );
 
-            return ClientActions.getUserAccounts_success({ payload: account });
+  createSubAccount$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ClientActions.createSubAccount),
+      exhaustMap(({ payload }) =>
+        this.clientService.createSubAccount(payload).pipe(
+          map((response) => {
+            console.log(response);
+
+            return ClientActions.createSubAccount_success({
+              payload: response,
+            });
           }),
           catchError((error) => {
             console.log(error);
 
-            return of(ClientActions.getUserAccounts_failed({ error: error }));
+            return of(ClientActions.createSubAccount_failed({ error: error }));
           })
         )
       )

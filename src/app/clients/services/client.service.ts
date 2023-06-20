@@ -1,6 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AccountsDataResponse } from 'src/app/shared/interfaces/accounts.interfaces';
+import {
+  AccountsDataResponse,
+  createSubAccountData,
+} from 'src/app/shared/interfaces/accounts.interfaces';
 import { UserDataResponse } from 'src/app/shared/interfaces/user.interfaces';
 import { environment } from 'src/environments/environment.development';
 
@@ -20,10 +23,26 @@ export class ClientService {
 
   getUserAccounts(id: string) {
     const token = localStorage.getItem('@token');
-    return this.httpClient.get<AccountsDataResponse>(
-      this.url + `/users/${id}/accounts`,
+    return this.httpClient.get<{
+      mainAccount: AccountsDataResponse;
+      subAccounts: AccountsDataResponse[];
+    }>(this.url + `/users/${id}/accounts`, {
+      headers: new HttpHeaders().set('Authorization', `${token}`),
+    });
+  }
+
+  createSubAccount(data: createSubAccountData) {
+    const token = localStorage.getItem('@token');
+
+    return this.httpClient.post<AccountsDataResponse>(
+      this.url + '/accounts/subaccounts/create',
+      data,
       {
-        headers: new HttpHeaders().set('Authorization', `${token}`),
+        headers: new HttpHeaders({
+          Authorization: `${token}`,
+
+          'Content-Type': 'application/json',
+        }),
       }
     );
   }

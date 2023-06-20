@@ -1,48 +1,40 @@
-.container-fluid {
-  padding: 2rem;
-  width: 95%;
-}
 .account {
+  background-color: #0079ff;
+  color: #fff;
+  height: 5.8rem;
+  border-radius: 0.3rem;
+  padding: 0.3rem;
+
   display: flex;
-  flex-direction: column;
-  position: relative;
+  align-items: center;
+  justify-content: space-between;
 
-  &__title {
-    font-size: 1.8rem;
-    font-weight: 500;
+  &__infos {
+    display: flex;
+    // flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
   }
-
   &__type {
     font-size: 1.3rem;
   }
 
-  &__infos {
-    background-color: #0079ff;
-    color: #fff;
-    height: 5rem;
-    border-radius: 0.3rem;
-    padding: 0.3rem;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
   &__number {
-    padding: 0;
-    margin: 0;
+    // padding: 0;
+    // margin: 0;
     margin-top: 6px;
+    margin-right: 1rem;
   }
 
   &__ammount {
-    width: 8rem;
+    width: 10rem;
     margin-top: 6px;
     margin-right: -5px;
   }
 }
 
 .p-title {
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   margin-bottom: -5px;
 }
 
@@ -63,7 +55,6 @@ mat-icon {
   position: relative;
 
   &__icon {
-    // position: absolute;
     right: 0;
   }
 }

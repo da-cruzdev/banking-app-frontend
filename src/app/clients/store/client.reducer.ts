@@ -7,14 +7,16 @@ interface State {
   user: UserDataResponse | null;
   loading: boolean;
   error: string | null;
-  accounts: AccountsDataResponse | null;
+  mainAccount: AccountsDataResponse | null;
+  subAccounts: AccountsDataResponse[] | null;
 }
 
 const initialState: State = {
   user: null,
   loading: false,
   error: null,
-  accounts: null,
+  mainAccount: null,
+  subAccounts: null,
 };
 
 export const clientFeature = createFeature({
@@ -43,9 +45,26 @@ export const clientFeature = createFeature({
       ...state,
       loading: false,
     })),
-    on(ClientActions.getUserAccounts_success, (state, { payload }) => ({
+    on(
+      ClientActions.getUserAccounts_success,
+      (state, { mainAccount, subAccounts }) => ({
+        ...state,
+        mainAccount,
+        subAccounts,
+        loading: false,
+      })
+    ),
+    on(ClientActions.createSubAccount, (state) => ({
       ...state,
-      accounts: payload,
+      loading: false,
+    })),
+    on(ClientActions.createSubAccount_failed, (state) => ({
+      ...state,
+      loading: false,
+    })),
+    on(ClientActions.createSubAccount_success, (state, { payload }) => ({
+      ...state,
+      account: payload,
       loading: false,
     }))
   ),
@@ -57,5 +76,6 @@ export const {
   selectLoading,
   selectUser,
   selectError,
-  selectAccounts,
+  selectMainAccount,
+  selectSubAccounts,
 } = clientFeature;
