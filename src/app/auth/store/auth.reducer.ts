@@ -39,13 +39,16 @@ export const authFeature = createFeature({
     })),
     on(AuthActions.LOGIN_FAILED, (state) => ({
       ...state,
-      loading: true,
+      loading: false,
     })),
     on(AuthActions.LOGIN_SUCCESS, (state, { token }) => ({
       ...state,
       token: token,
-      loading: true,
-    }))
+      loading: false,
+    })),
+    on(AuthActions.logout, (state) => ({ ...state })),
+    on(AuthActions.logoutSuccess, (state) => ({ ...state, loading: false })),
+    on(AuthActions.logoutFailure, (state) => ({ ...state, loading: false }))
   ),
 });
 

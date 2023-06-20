@@ -41,6 +41,8 @@ export class AuthEffects {
             this.toastrService.success(
               'Vous êtes connecté a votre compte avec succès'
             );
+            console.log(response);
+
             this.router.navigate(['/dashboard']);
             localStorage.setItem('@token', response.token);
 
@@ -49,6 +51,29 @@ export class AuthEffects {
           catchError((error) => {
             this.toastrService.error(error.error.error, 'Erreur');
             return of(AuthActions.LOGIN_FAILED());
+          })
+        )
+      )
+    )
+  );
+
+  logout$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.logout),
+      exhaustMap(() =>
+        this.authService.logout().pipe(
+          map(() => {
+            this.router.navigate(['/auth/login']);
+
+            this.toastrService.success();
+
+            return AuthActions.logoutSuccess();
+          }),
+          catchError((error) => {
+            console.log(error);
+
+            this.toastrService.error(error.error.error, 'Erreur');
+            return of(AuthActions.logoutFailure());
           })
         )
       )

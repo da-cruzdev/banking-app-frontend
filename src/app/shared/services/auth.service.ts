@@ -48,6 +48,13 @@ export class AuthService {
     );
   }
 
+  logout() {
+    const token = localStorage.getItem('@token');
+    return this.httpClient.post(this.url + '/auth/logout', {
+      headers: new HttpHeaders().set('Authorization', `${token}`),
+    });
+  }
+
   verifyForgotPass(data: any) {
     return this.httpClient
       .post<httpResponse>(this.url + '/auth/forget-password', data, {

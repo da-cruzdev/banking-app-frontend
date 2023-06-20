@@ -11,13 +11,15 @@ import {
   selectUser,
 } from '../store/client.reducer';
 import { UserDataResponse } from 'src/app/shared/interfaces/user.interfaces';
-import { filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import {
   AccountsDataResponse,
   createSubAccountData,
 } from 'src/app/shared/interfaces/accounts.interfaces';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,7 +31,11 @@ export class DashboardComponent implements OnInit {
   mainAccount$!: Observable<AccountsDataResponse | null>;
   subAccounts$!: Observable<AccountsDataResponse[] | null>;
 
-  constructor(private readonly store: Store) {}
+  constructor(
+    private readonly store: Store,
+    private readonly router: Router,
+    private readonly toastrService: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.store.dispatch(GetUser());
@@ -66,5 +72,11 @@ export class DashboardComponent implements OnInit {
         this.store.dispatch(createSubAccount({ payload }));
       }
     });
+  }
+
+  logout() {
+    localStorage.removeItem('@token');
+    this.toastrService.success('Déconnexion réussie');
+    this.router.navigate(['/auth/login']);
   }
 }
