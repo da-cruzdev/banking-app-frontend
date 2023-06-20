@@ -30,6 +30,9 @@ export class DashboardComponent implements OnInit {
   userInfo$!: Observable<UserDataResponse | null>;
   mainAccount$!: Observable<AccountsDataResponse | null>;
   subAccounts$!: Observable<AccountsDataResponse[] | null>;
+  subAccountsToShow: AccountsDataResponse[] = [];
+
+  i: number = 0;
 
   constructor(
     private readonly store: Store,
@@ -50,7 +53,7 @@ export class DashboardComponent implements OnInit {
     this.mainAccount$ = this.store.select(selectMainAccount);
     this.subAccounts$ = this.store.select(selectSubAccounts);
     this.subAccounts$.subscribe((subAccounts) => {
-      console.log(subAccounts);
+      this.subAccountsToShow = subAccounts?.slice(0, 2) || [];
     });
   }
 

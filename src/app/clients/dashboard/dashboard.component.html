@@ -11,7 +11,7 @@
           ></app-account>
           <app-account
             class="mt-3"
-            *ngFor="let account of subAccounts$ | async"
+            *ngFor="let account of subAccountsToShow"
             [subAccountData]="account"
           >
           </app-account>
