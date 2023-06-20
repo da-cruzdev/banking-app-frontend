@@ -46,6 +46,10 @@
     align-items: center;
     position: relative;
 
+    &:hover {
+      cursor: pointer;
+    }
+
     &-text {
       font-style: normal;
       font-weight: 400;
@@ -53,6 +57,7 @@
       line-height: 1rem;
       color: #ff0060;
       margin-right: 2rem;
+      margin-top: 1rem;
     }
 
     &-icon {
@@ -64,8 +69,4 @@
       right: 0;
     }
   }
-}
-
-a {
-  text-decoration: none;
 }
