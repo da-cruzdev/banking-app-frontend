@@ -12,6 +12,7 @@ import { clientFeature } from './store/client.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { ClientEffects } from './store/client.effects';
 import { AccountTypePipe } from '../shared/pipes/account-type.pipe';
+import { TransactionsComponent } from './transactions/transactions.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { AccountTypePipe } from '../shared/pipes/account-type.pipe';
     FilterTransactionListComponent,
     AccountComponent,
     AccountTypePipe,
+    TransactionsComponent,
   ],
   imports: [
     CommonModule,
