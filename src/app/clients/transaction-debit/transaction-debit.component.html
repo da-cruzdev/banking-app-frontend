@@ -1,1 +1,126 @@
-<p>transaction-debit works!</p>
+<p>
+  <mat-toolbar class="content">
+    <mat-menu #accountMenu="matMenu">
+      <button
+        mat-menu-item
+        *ngFor="let account of accounts"
+        (click)="updateSelectedAccount(account)"
+      >
+        {{ account.accountType | accountType }}
+      </button>
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="accountMenu">
+      {{ selectedAccount?.accountType | accountType }}
+      <mat-icon matIconSuffix style="order: 1; font-size: 10px"
+        >arrow_drop_down</mat-icon
+      >
+    </button>
+
+    <div class="account__number">
+      <p class="p-title">Numéro de compte</p>
+      <p class="p-content">
+        {{ selectedAccount?.iban }}
+      </p>
+    </div>
+
+    <div class="account__amount">
+      <p class="p-title">Solde disponible</p>
+      <div class="p-content" *ngIf="showBalance">
+        {{ selectedAccount?.balance }} {{ selectedAccount?.currency }}
+      </div>
+      <p class="p-content" *ngIf="!showBalance">..........</p>
+    </div>
+
+    <mat-icon matSuffix (click)="toggleBalanceVisibility()" class="show">
+      {{ showBalance ? "visibility_off" : "visibility" }}
+    </mat-icon>
+  </mat-toolbar>
+</p>
+
+<div class="container-fluid">
+  <div>
+    <form
+      novalidate
+      class="form-container"
+      [formGroup]="transactionForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <h3 class="title">Débiter mon compte</h3>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row">
+            <mat-form-field appearance="outline">
+              <mat-label>Numéro de compte</mat-label>
+              <input
+                matInput
+                placeholder="Numéro de compte"
+                formControlName="accountNumber"
+              />
+              <mat-error *ngIf="hasControlError('accountNumber', 'required')"
+                >Le numéro de compte est requis</mat-error
+              >
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Montant</mat-label>
+              <input
+                matInput
+                placeholder="Montant"
+                type="number"
+                formControlName="amount"
+              />
+              <mat-error *ngIf="hasControlError('amount', 'amountError')"
+                >Le montant doit être compris entre 500 et 100000</mat-error
+              >
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Motif</mat-label>
+              <textarea matInput formControlName="reason"></textarea>
+              <mat-error *ngIf="hasControlError('reason', 'required')"
+                >Veuillez mettre le motif</mat-error
+              >
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="recap">
+            <h3 class="title">Récapitulatif de la transaction</h3>
+            <div class="reacp__amount">
+              Montant à transférer:
+              <span class="span fw-bold">
+                {{ transactionForm.value.amount }} XOF
+              </span>
+            </div>
+            <!-- <div class="recap__receiver">
+                  Bénéficiaire: <span class="span fw-bold">SORO Jr</span>
+                </div> -->
+            <div class="recap__motif">
+              Motif:
+              <span class="span">
+                {{ transactionForm.value.reason }}
+              </span>
+            </div>
+            <div class="recap__sold">
+              Nouveau solde:
+              <span class="span fw-bold"
+                >{{
+                  (selectedAccount?.balance || 0) -
+                    (transactionForm.value?.amount || 0)
+                }}
+                XOF</span
+              >
+            </div>
+          </div>
+          <button
+            mat-raised-button
+            color="primary"
+            class="submit-button"
+            [type]=""
+            [disabled]="transactionForm.invalid"
+          >
+            Envoyer
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
