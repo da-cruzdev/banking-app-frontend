@@ -26,7 +26,7 @@ export class AccountComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {}
   ngOnInit(): void {
-    this.accountData$?.subscribe((accountData) => {
+    this.accountData$.subscribe((accountData) => {
       console.log(accountData);
     });
   }
