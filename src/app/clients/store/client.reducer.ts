@@ -2,6 +2,7 @@ import { createFeature, createReducer, on } from '@ngrx/store';
 import * as ClientActions from './client.actions';
 import { UserDataResponse } from 'src/app/shared/interfaces/user.interfaces';
 import { AccountsDataResponse } from 'src/app/shared/interfaces/accounts.interfaces';
+import { TransactionData } from 'src/app/shared/interfaces/transactions.interfaces';
 
 interface State {
   user: UserDataResponse | null;
@@ -10,6 +11,7 @@ interface State {
   mainAccount: AccountsDataResponse | null;
   subAccounts: AccountsDataResponse[] | null;
   message: string | null;
+  transactions: TransactionData[];
 }
 
 const initialState: State = {
@@ -19,6 +21,7 @@ const initialState: State = {
   mainAccount: null,
   subAccounts: null,
   message: null,
+  transactions: [],
 };
 
 export const clientFeature = createFeature({
@@ -71,7 +74,7 @@ export const clientFeature = createFeature({
     })),
     on(ClientActions.createTransaction, (state) => ({
       ...state,
-      loading: false,
+      loading: true,
     })),
     on(ClientActions.createTransaction_succes, (state, { message }) => ({
       ...state,
@@ -79,6 +82,20 @@ export const clientFeature = createFeature({
       loading: false,
     })),
     on(ClientActions.createTransaction_failed, (state, { error }) => ({
+      ...state,
+      error,
+      loading: false,
+    })),
+    on(ClientActions.getUserTransactions, (state) => ({
+      ...state,
+      loading: true,
+    })),
+    on(ClientActions.getUserTransactions_success, (state, { payload }) => ({
+      ...state,
+      transactions: payload,
+      loading: false,
+    })),
+    on(ClientActions.getUserTransactions_failed, (state, { error }) => ({
       ...state,
       error,
       loading: false,
@@ -94,4 +111,6 @@ export const {
   selectError,
   selectMainAccount,
   selectSubAccounts,
+  selectMessage,
+  selectTransactions,
 } = clientFeature;

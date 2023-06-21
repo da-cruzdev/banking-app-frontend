@@ -41,7 +41,6 @@ export class ClientEffects {
       exhaustMap(({ id }) =>
         this.clientService.getUserAccounts(id).pipe(
           map((response) => {
-            console.log(response);
             return ClientActions.getUserAccounts_success({
               mainAccount: response.mainAccount,
               subAccounts: response.subAccounts,
@@ -106,6 +105,29 @@ export class ClientEffects {
             });
             this.toastrService.error(error.error.error);
             return of(ClientActions.createTransaction_failed({ error: error }));
+          })
+        )
+      )
+    )
+  );
+
+  getUserTransactions$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ClientActions.getUserTransactions),
+      exhaustMap(({ id }) =>
+        this.clientService.getUserTransactions(id).pipe(
+          map((response) => {
+            return ClientActions.getUserTransactions_success({
+              payload: response,
+            });
+          }),
+          catchError((error) => {
+            console.log(error);
+
+            this.toastrService.error(error.error.error);
+            return of(
+              ClientActions.getUserTransactions_failed({ error: error })
+            );
           })
         )
       )

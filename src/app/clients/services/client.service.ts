@@ -4,7 +4,10 @@ import {
   AccountsDataResponse,
   createSubAccountData,
 } from 'src/app/shared/interfaces/accounts.interfaces';
-import { CreateTransactionData } from 'src/app/shared/interfaces/transactions.interfaces';
+import {
+  CreateTransactionData,
+  TransactionData,
+} from 'src/app/shared/interfaces/transactions.interfaces';
 import { UserDataResponse } from 'src/app/shared/interfaces/user.interfaces';
 import { environment } from 'src/environments/environment.development';
 
@@ -58,5 +61,15 @@ export class ClientService {
         'Content-Type': 'application/json',
       }),
     });
+  }
+
+  getUserTransactions(id: string) {
+    const token = localStorage.getItem('@token');
+    return this.httpClient.get<TransactionData[]>(
+      this.url + `/users/${id}/transactions`,
+      {
+        headers: new HttpHeaders().set('Authorization', `${token}`),
+      }
+    );
   }
 }

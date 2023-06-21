@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
   GetUser,
@@ -17,7 +17,7 @@ import {
   AccountsDataResponse,
   createSubAccountData,
 } from 'src/app/shared/interfaces/accounts.interfaces';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -26,7 +26,11 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
+  userInfoSubscription: Subscription | undefined;
+  mainAccountSubscription: Subscription | undefined;
+  subAccountsSubscription: Subscription | undefined;
+
   userInfo$!: Observable<UserDataResponse | null>;
   mainAccount$!: Observable<AccountsDataResponse | null>;
   subAccounts$!: Observable<AccountsDataResponse[] | null>;
@@ -44,17 +48,28 @@ export class DashboardComponent implements OnInit {
     this.store.dispatch(GetUser());
     this.userInfo$ = this.store.select(selectUser);
 
-    this.userInfo$.subscribe((userInfo) => {
+    this.userInfoSubscription = this.userInfo$.subscribe((userInfo) => {
       if (userInfo) {
         const id = userInfo.id;
         this.store.dispatch(getUserAccounts({ id: id.toString() }));
       }
     });
+
     this.mainAccount$ = this.store.select(selectMainAccount);
+    this.mainAccountSubscription = this.mainAccount$.subscribe();
+
     this.subAccounts$ = this.store.select(selectSubAccounts);
-    this.subAccounts$.subscribe((subAccounts) => {
-      this.subAccountsToShow = subAccounts?.slice(0, 2) || [];
-    });
+    this.subAccountsSubscription = this.subAccounts$.subscribe(
+      (subAccounts) => {
+        this.subAccountsToShow = subAccounts?.slice(0, 2) || [];
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.userInfoSubscription?.unsubscribe();
+    this.mainAccountSubscription?.unsubscribe();
+    this.subAccountsSubscription?.unsubscribe();
   }
 
   getSubAccountData(index: number): Observable<AccountsDataResponse | null> {
@@ -65,8 +80,6 @@ export class DashboardComponent implements OnInit {
 
   handleSubAccountCreated(accountType: string) {
     this.mainAccount$.subscribe((accounts) => {
-      console.log(accounts);
-
       if (accounts && accounts) {
         const accountIban = accounts.iban;
         console.log(accountIban);
