@@ -6,6 +6,10 @@ import { Router } from '@angular/router';
 import { ClientService } from '../services/client.service';
 import { catchError, exhaustMap, map } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { RegisterComponent } from 'src/app/auth/register/register.component';
+import { DialogSuccessComponent } from '../transations-list/components/dialogs/dialog-success/dialog-success.component';
+import { DialogFailedComponent } from '../transations-list/components/dialogs/dialog-failed/dialog-failed.component';
 
 @Injectable()
 export class ClientEffects {
@@ -92,6 +96,10 @@ export class ClientEffects {
           }),
           catchError((error) => {
             console.log(error);
+            this.dialog.open(DialogFailedComponent, {
+              width: '731px',
+              height: '566px',
+            });
             this.toastrService.error('Echec de la transaction');
             return of(ClientActions.createTransaction_failed({ error: error }));
           })
@@ -103,6 +111,7 @@ export class ClientEffects {
   constructor(
     private readonly actions$: Actions,
     private readonly toastrService: ToastrService,
-    private readonly clientService: ClientService
+    private readonly clientService: ClientService,
+    private readonly dialog: MatDialog
   ) {}
 }

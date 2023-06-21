@@ -1,0 +1,34 @@
+.dialog {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  & > *:not(:first-child) {
+    margin-top: 2rem;
+  }
+
+  &__icon {
+    color: #ff0060;
+    font-size: 20px;
+  }
+
+  &__msg {
+    font-size: 2.2rem;
+    color: #ff0060;
+  }
+}
+
+.logo {
+  width: 25rem;
+}
+
+mat-icon {
+  width: 73px;
+  height: 74px;
+}
+
+.buton {
+  width: 18rem;
+  height: 4rem;
+}

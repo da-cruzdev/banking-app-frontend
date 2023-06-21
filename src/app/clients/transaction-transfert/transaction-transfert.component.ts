@@ -11,7 +11,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { createTransaction } from '../store/client.actions';
-import { CreateTransactionData } from 'src/app/shared/interfaces/transactions.interfaces';
 
 @Component({
   selector: 'app-transaction-transfert',
