@@ -15,6 +15,8 @@ import { TransationsTableComponent } from './transations-list/components/table/t
 import { TransactionsListComponent } from './transations-list/containers/transactions-list/transactions-list.component';
 import { TransactionTransfertComponent } from './transaction-transfert/transaction-transfert.component';
 import { TransactionDebitComponent } from './transaction-debit/transaction-debit.component';
+import { DialogSuccessComponent } from './transations-list/components/dialogs/dialog-success/dialog-success.component';
+import { DialogFailedComponent } from './transations-list/components/dialogs/dialog-failed/dialog-failed.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { TransactionDebitComponent } from './transaction-debit/transaction-debit
     TransactionsListComponent,
     TransactionTransfertComponent,
     TransactionDebitComponent,
+    DialogSuccessComponent,
+    DialogFailedComponent,
   ],
   imports: [
     CommonModule,
