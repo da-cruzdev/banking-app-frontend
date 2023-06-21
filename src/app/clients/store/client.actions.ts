@@ -3,6 +3,7 @@ import {
   AccountsDataResponse,
   createSubAccountData,
 } from 'src/app/shared/interfaces/accounts.interfaces';
+import { CreateTransactionData } from 'src/app/shared/interfaces/transactions.interfaces';
 import { UserDataResponse } from 'src/app/shared/interfaces/user.interfaces';
 
 export const GetUser = createAction(
@@ -50,4 +51,19 @@ export const createSubAccount_failed = createAction(
 export const createSubAccount_success = createAction(
   '[Client] createSubAccount success',
   props<{ payload: AccountsDataResponse }>()
+);
+
+export const createTransaction = createAction(
+  '[Client] createTransaction',
+  props<{ payload: CreateTransactionData }>()
+);
+
+export const createTransaction_succes = createAction(
+  '[Client] createTransaction success',
+  props<{ message: string }>()
+);
+
+export const createTransaction_failed = createAction(
+  '[Client] createTransaction failed',
+  props<{ error: string }>()
 );

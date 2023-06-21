@@ -10,6 +10,8 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { createTransaction } from '../store/client.actions';
+import { CreateTransactionData } from 'src/app/shared/interfaces/transactions.interfaces';
 
 @Component({
   selector: 'app-transaction-transfert',
@@ -62,12 +64,16 @@ export class TransactionTransfertComponent implements OnInit {
 
   onSubmit() {
     const formData = this.transactionForm.value;
+    const accountIbanEmitter = this.selectedAccount?.iban;
     const data = {
-      accountNumber: formData.accountNumber,
+      accountIbanEmitter,
+      accountIbanReceiver: formData.accountNumber,
       amount: formData.amount,
       reason: formData.reason,
+      transactionType: 'transfert',
     };
-    console.log(data);
+    this.store.dispatch(createTransaction({ payload: data }));
+    this.transactionForm.reset();
   }
 
   amountRangeValidator(min: number, max: number): ValidatorFn {

@@ -75,6 +75,31 @@ export class ClientEffects {
     )
   );
 
+  createTransaction$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ClientActions.createTransaction),
+      exhaustMap(({ payload }) =>
+        this.clientService.createTransaction(payload).pipe(
+          map((response) => {
+            console.log(response);
+            this.toastrService.success(
+              'Votre transaction a été effectuée et est en cours de traitement'
+            );
+
+            return ClientActions.createTransaction_succes({
+              message: response.toString(),
+            });
+          }),
+          catchError((error) => {
+            console.log(error);
+            this.toastrService.error('Echec de la transaction');
+            return of(ClientActions.createTransaction_failed({ error: error }));
+          })
+        )
+      )
+    )
+  );
+
   constructor(
     private readonly actions$: Actions,
     private readonly toastrService: ToastrService,

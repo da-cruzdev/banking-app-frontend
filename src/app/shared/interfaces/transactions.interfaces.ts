@@ -1,6 +1,7 @@
-export interface TransactionData {
-  ReceiverAccount: string;
-  emitterAccount: string;
+export interface CreateTransactionData {
+  accountIbanEmitter: string | undefined;
+  accountIbanReceiver: string;
   amount: number;
   reason: string;
+  transactionType: string;
 }

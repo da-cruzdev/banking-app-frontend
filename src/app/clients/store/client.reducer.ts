@@ -9,6 +9,7 @@ interface State {
   error: string | null;
   mainAccount: AccountsDataResponse | null;
   subAccounts: AccountsDataResponse[] | null;
+  message: string | null;
 }
 
 const initialState: State = {
@@ -17,6 +18,7 @@ const initialState: State = {
   error: null,
   mainAccount: null,
   subAccounts: null,
+  message: null,
 };
 
 export const clientFeature = createFeature({
@@ -65,6 +67,20 @@ export const clientFeature = createFeature({
     on(ClientActions.createSubAccount_success, (state, { payload }) => ({
       ...state,
       account: payload,
+      loading: false,
+    })),
+    on(ClientActions.createTransaction, (state) => ({
+      ...state,
+      loading: false,
+    })),
+    on(ClientActions.createTransaction_succes, (state, { message }) => ({
+      ...state,
+      message,
+      loading: false,
+    })),
+    on(ClientActions.createTransaction_failed, (state, { error }) => ({
+      ...state,
+      error,
       loading: false,
     }))
   ),
