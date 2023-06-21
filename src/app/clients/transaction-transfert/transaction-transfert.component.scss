@@ -8,22 +8,15 @@
 }
 
 .form-container {
-  width: 70%;
-  margin-left: 4rem;
-}
-
-.debit {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  width: 80%;
+  margin-left: 1.5rem;
+  margin-top: 5.5rem;
 }
 
 .recap {
-  width: 35rem;
-  height: 25rem;
-  margin-right: 10rem;
+  margin-left: 10rem;
   font-size: 1.4rem;
-  margin-top: 7rem;
+  margin-top: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -59,19 +52,12 @@
   height: 8rem;
 }
 
-::ng-deep .mat-select-content {
-  margin-top: 2.7rem !important;
-  border: none !important;
-  padding: 0 !important;
-  // width: 18rem !important;
-  font-weight: bold !important;
+.submit-button {
+  margin-left: 17rem;
+  margin-top: 3rem;
 }
 
-mat-label {
-  font-size: 1.5rem !important;
-  border: none !important;
-}
-
-mat-select {
-  border: none !important;
+.show {
+  margin-top: 1rem;
+  margin-left: -1.5rem;
 }

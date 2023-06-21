@@ -1,13 +1,20 @@
 <p>
   <mat-toolbar class="content">
-    <mat-form-field appearance="outline" class="mat-select-content">
-      <mat-label>Type de compte</mat-label>
-      <mat-select (selectionChange)="updateSelectedAccount($event.value)">
-        <mat-option *ngFor="let account of accounts" [value]="account">
-          {{ account.accountType | accountType }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <mat-menu #accountMenu="matMenu">
+      <button
+        mat-menu-item
+        *ngFor="let account of accounts"
+        (click)="updateSelectedAccount(account)"
+      >
+        {{ account.accountType | accountType }}
+      </button>
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="accountMenu">
+      {{ selectedAccount?.accountType | accountType }}
+      <mat-icon matIconSuffix style="order: 1; font-size: 10px"
+        >arrow_drop_down</mat-icon
+      >
+    </button>
 
     <div class="account__number">
       <p class="p-title">Numéro de compte</p>
@@ -24,60 +31,57 @@
       <p class="p-content" *ngIf="!showBalance">..........</p>
     </div>
 
-    <mat-icon matSuffix (click)="toggleBalanceVisibility()">
+    <mat-icon matSuffix (click)="toggleBalanceVisibility()" class="show">
       {{ showBalance ? "visibility_off" : "visibility" }}
     </mat-icon>
   </mat-toolbar>
 </p>
 
-<div class="container-fluid w-100">
-  <div class="debit">
-    <div>
-      <form
-        novalidate
-        class="form-container"
-        [formGroup]="transactionForm"
-        (ngSubmit)="onSubmit()"
-      >
-        <h3 class="title">Transfert d'argent</h3>
-        <div class="row">
-          <!-- <mat-form-field appearance="outline">
-            <mat-label>Nom du bénéficiaire</mat-label>
-            <input matInput placeholder="Nom du bénéficiaire" />
-          </mat-form-field> -->
-          <mat-form-field appearance="outline">
-            <mat-label>Numéro de compte</mat-label>
-            <input
-              matInput
-              placeholder="Numéro de compte"
-              formControlName="accountNumber"
-            />
-            <mat-error *ngIf="hasControlError('accountNumber', 'required')"
-              >Le numéro de compte est requis</mat-error
-            >
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Montant</mat-label>
-            <input
-              matInput
-              placeholder="Montant"
-              type="number"
-              formControlName="amount"
-            />
-            <mat-error *ngIf="hasControlError('amount', 'amountError')"
-              >Le montant doit être compris entre 500 et 100000</mat-error
-            >
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Motif</mat-label>
-            <textarea matInput formControlName="reason"></textarea>
-            <mat-error *ngIf="hasControlError('reason', 'required')"
-              >Veuillez mettre le motif</mat-error
-            >
-          </mat-form-field>
+<div class="container-fluid">
+  <div>
+    <form
+      novalidate
+      class="form-container"
+      [formGroup]="transactionForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <h3 class="title">Transfert d'argent</h3>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row">
+            <mat-form-field appearance="outline">
+              <mat-label>Numéro de compte</mat-label>
+              <input
+                matInput
+                placeholder="Numéro de compte"
+                formControlName="accountNumber"
+              />
+              <mat-error *ngIf="hasControlError('accountNumber', 'required')"
+                >Le numéro de compte est requis</mat-error
+              >
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Montant</mat-label>
+              <input
+                matInput
+                placeholder="Montant"
+                type="number"
+                formControlName="amount"
+              />
+              <mat-error *ngIf="hasControlError('amount', 'amountError')"
+                >Le montant doit être compris entre 500 et 100000</mat-error
+              >
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Motif</mat-label>
+              <textarea matInput formControlName="reason"></textarea>
+              <mat-error *ngIf="hasControlError('reason', 'required')"
+                >Veuillez mettre le motif</mat-error
+              >
+            </mat-form-field>
+          </div>
         </div>
-
-        <div>
+        <div class="col-md-6">
           <div class="recap">
             <h3 class="title">Récapitulatif de la transaction</h3>
             <div class="reacp__amount">
@@ -87,8 +91,8 @@
               </span>
             </div>
             <!-- <div class="recap__receiver">
-              Bénéficiaire: <span class="span fw-bold">SORO Jr</span>
-            </div> -->
+                Bénéficiaire: <span class="span fw-bold">SORO Jr</span>
+              </div> -->
             <div class="recap__motif">
               Motif:
               <span class="span">
@@ -116,7 +120,7 @@
             Envoyer
           </button>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   </div>
 </div>

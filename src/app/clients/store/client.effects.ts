@@ -89,6 +89,10 @@ export class ClientEffects {
             this.toastrService.success(
               'Votre transaction a été effectuée et est en cours de traitement'
             );
+            this.dialog.open(DialogSuccessComponent, {
+              width: '731px',
+              height: '566px',
+            });
 
             return ClientActions.createTransaction_succes({
               message: response.toString(),
@@ -100,7 +104,7 @@ export class ClientEffects {
               width: '731px',
               height: '566px',
             });
-            this.toastrService.error('Echec de la transaction');
+            this.toastrService.error(error.error.error);
             return of(ClientActions.createTransaction_failed({ error: error }));
           })
         )
