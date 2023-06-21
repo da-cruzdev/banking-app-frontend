@@ -48,6 +48,11 @@ export class AuthService {
     );
   }
 
+  isLoggedIn(): boolean {
+    const token = localStorage.getItem('@token');
+    return !!token;
+  }
+
   logout() {
     const token = localStorage.getItem('@token');
     return this.httpClient.post(this.url + '/auth/logout', {
