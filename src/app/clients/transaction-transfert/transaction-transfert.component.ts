@@ -3,6 +3,13 @@ import { Store } from '@ngrx/store';
 import { selectMainAccount, selectSubAccounts } from '../store/client.reducer';
 import { AccountsDataResponse } from 'src/app/shared/interfaces/accounts.interfaces';
 import { Observable } from 'rxjs';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-transaction-transfert',
@@ -15,8 +22,12 @@ export class TransactionTransfertComponent implements OnInit {
   subAccounts: AccountsDataResponse[] | null = null;
   accounts: AccountsDataResponse[] = [];
   selectedAccount: AccountsDataResponse | null = null;
+  transactionForm!: FormGroup;
 
-  constructor(private readonly store: Store) {}
+  constructor(
+    private readonly store: Store,
+    private readonly fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.store.select(selectMainAccount).subscribe((account) => {
@@ -33,6 +44,12 @@ export class TransactionTransfertComponent implements OnInit {
         this.subAccounts = accounts;
       }
     });
+
+    this.transactionForm = this.fb.group({
+      accountNumber: ['', Validators.required],
+      amount: ['', [this.amountRangeValidator(500, 100000)]],
+      reason: ['', Validators.required],
+    });
   }
 
   updateSelectedAccount(account: AccountsDataResponse) {
@@ -41,5 +58,30 @@ export class TransactionTransfertComponent implements OnInit {
 
   toggleBalanceVisibility(): void {
     this.showBalance = !this.showBalance;
+  }
+
+  onSubmit() {
+    const formData = this.transactionForm.value;
+    const data = {
+      accountNumber: formData.accountNumber,
+      amount: formData.amount,
+      reason: formData.reason,
+    };
+    console.log(data);
+  }
+
+  amountRangeValidator(min: number, max: number): ValidatorFn {
+    return (c: AbstractControl): { [key: string]: boolean } | null => {
+      if ((!!c.value && isNaN(c.value)) || c.value < min || c.value > max) {
+        return { amountError: true };
+      }
+
+      return null;
+    };
+  }
+
+  hasControlError(controlName: string, errorName: string): boolean {
+    const control = this.transactionForm.get(controlName);
+    return control?.errors?.[errorName];
   }
 }

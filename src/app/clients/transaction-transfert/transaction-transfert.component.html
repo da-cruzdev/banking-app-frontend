@@ -33,7 +33,12 @@
 <div class="container-fluid w-100">
   <div class="debit">
     <div>
-      <form novalidate class="form-container">
+      <form
+        novalidate
+        class="form-container"
+        [formGroup]="transactionForm"
+        (ngSubmit)="onSubmit()"
+      >
         <h3 class="title">Transfert d'argent</h3>
         <div class="row">
           <!-- <mat-form-field appearance="outline">
@@ -42,44 +47,76 @@
           </mat-form-field> -->
           <mat-form-field appearance="outline">
             <mat-label>Numéro de compte</mat-label>
-            <input matInput placeholder="Numéro de compte" />
+            <input
+              matInput
+              placeholder="Numéro de compte"
+              formControlName="accountNumber"
+            />
+            <mat-error *ngIf="hasControlError('accountNumber', 'required')"
+              >Le numéro de compte est requis</mat-error
+            >
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Montant</mat-label>
-            <input matInput placeholder="Montant" />
+            <input
+              matInput
+              placeholder="Montant"
+              type="number"
+              formControlName="amount"
+            />
+            <mat-error *ngIf="hasControlError('amount', 'amountError')"
+              >Le montant doit être compris entre 500 et 100000</mat-error
+            >
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Motif</mat-label>
-            <textarea matInput></textarea>
+            <textarea matInput formControlName="reason"></textarea>
+            <mat-error *ngIf="hasControlError('reason', 'required')"
+              >Veuillez mettre le motif</mat-error
+            >
           </mat-form-field>
         </div>
-      </form>
-    </div>
 
-    <div>
-      <div class="recap">
-        <h3 class="title">Récapitulatif de la transaction</h3>
-        <div class="reacp__amount">
-          Montant à transférer: <span class="span fw-bold">82.098 XOF</span>
+        <div>
+          <div class="recap">
+            <h3 class="title">Récapitulatif de la transaction</h3>
+            <div class="reacp__amount">
+              Montant à transférer:
+              <span class="span fw-bold">
+                {{ transactionForm.value.amount }} XOF
+              </span>
+            </div>
+            <!-- <div class="recap__receiver">
+              Bénéficiaire: <span class="span fw-bold">SORO Jr</span>
+            </div> -->
+            <div class="recap__motif">
+              Motif:
+              <span class="span">
+                {{ transactionForm.value.reason }}
+              </span>
+            </div>
+            <div class="recap__sold">
+              Nouveau solde:
+              <span class="span fw-bold"
+                >{{
+                  (selectedAccount?.balance || 0) -
+                    (transactionForm.value?.amount || 0)
+                }}
+                XOF</span
+              >
+            </div>
+          </div>
+          <button
+            mat-raised-button
+            color="primary"
+            class="submit-button"
+            [type]=""
+            [disabled]="transactionForm.invalid"
+          >
+            Envoyer
+          </button>
         </div>
-        <div class="recap__receiver">
-          Bénéficiaire: <span class="span fw-bold">SORO Jr</span>
-        </div>
-        <div class="recap__motif">
-          Motif: <span class="span">Cantine scolaire</span>
-        </div>
-        <div class="recap__sold">
-          Nouveau solde: <span class="span fw-bold">82.098 XOF</span>
-        </div>
-      </div>
-      <button
-        mat-raised-button
-        color="primary"
-        class="submit-button"
-        disabled="true"
-      >
-        Envoyer
-      </button>
+      </form>
     </div>
   </div>
 </div>
