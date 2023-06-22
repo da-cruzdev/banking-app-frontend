@@ -39,8 +39,8 @@ export class ClientEffects {
   getUserAccounts$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ClientActions.getUserAccounts),
-      exhaustMap(({ id }) =>
-        this.clientService.getUserAccounts(id).pipe(
+      exhaustMap(() =>
+        this.clientService.getUserAccounts().pipe(
           map((response) => {
             return ClientActions.getUserAccounts_success({
               mainAccount: response.mainAccount,
@@ -63,7 +63,7 @@ export class ClientEffects {
       exhaustMap(({ payload }) =>
         this.clientService.createSubAccount(payload).pipe(
           map((response) => {
-            // this.store.dispatch(ClientActions.getUserAccounts())
+            // this.store.dispatch(ClientActions.getUserAccounts());
             return ClientActions.createSubAccount_success({
               payload: response,
             });
@@ -114,8 +114,8 @@ export class ClientEffects {
   getUserTransactions$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ClientActions.getUserTransactions),
-      exhaustMap(({ id }) =>
-        this.clientService.getUserTransactions(id).pipe(
+      exhaustMap(() =>
+        this.clientService.getUserTransactions().pipe(
           map((response) => {
             return ClientActions.getUserTransactions_success({
               payload: response,

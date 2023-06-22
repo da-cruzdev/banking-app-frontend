@@ -47,13 +47,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.store.dispatch(GetUser());
     this.userInfo$ = this.store.select(selectUser);
+    this.store.dispatch(getUserAccounts());
 
-    this.userInfoSubscription = this.userInfo$.subscribe((userInfo) => {
-      if (userInfo) {
-        const id = userInfo.id;
-        this.store.dispatch(getUserAccounts({ id: id.toString() }));
-      }
-    });
+    // this.userInfoSubscription = this.userInfo$.subscribe((userInfo) => {
+    //   if (userInfo) {
+    //     const id = userInfo.id;
+    //   }
+    // });
 
     this.mainAccount$ = this.store.select(selectMainAccount);
     this.mainAccountSubscription = this.mainAccount$.subscribe();

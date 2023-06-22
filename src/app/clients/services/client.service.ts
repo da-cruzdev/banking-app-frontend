@@ -25,12 +25,12 @@ export class ClientService {
     });
   }
 
-  getUserAccounts(id: string) {
+  getUserAccounts() {
     const token = localStorage.getItem('@token');
     return this.httpClient.get<{
       mainAccount: AccountsDataResponse;
       subAccounts: AccountsDataResponse[];
-    }>(this.url + `/users/${id}/accounts`, {
+    }>(this.url + `/users/accounts`, {
       headers: new HttpHeaders().set('Authorization', `${token}`),
     });
   }
@@ -63,10 +63,10 @@ export class ClientService {
     });
   }
 
-  getUserTransactions(id: string) {
+  getUserTransactions() {
     const token = localStorage.getItem('@token');
     return this.httpClient.get<TransactionData[]>(
-      this.url + `/users/${id}/transactions`,
+      this.url + `/users/transactions`,
       {
         headers: new HttpHeaders().set('Authorization', `${token}`),
       }

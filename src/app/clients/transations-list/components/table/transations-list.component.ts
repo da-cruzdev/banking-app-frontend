@@ -9,6 +9,7 @@ import {
   selectTransactions,
   selectUser,
 } from 'src/app/clients/store/client.reducer';
+import { selectAccountTypeFilter } from 'src/app/clients/store/client.selectors';
 import { TransactionData } from 'src/app/shared/interfaces/transactions.interfaces';
 import { UserDataResponse } from 'src/app/shared/interfaces/user.interfaces';
 
@@ -20,19 +21,16 @@ import { UserDataResponse } from 'src/app/shared/interfaces/user.interfaces';
 export class TransationsTableComponent implements OnInit, OnDestroy {
   userTransactions$!: Observable<TransactionData[]>;
   userInfos$!: Observable<UserDataResponse | null>;
-
   userInfoSubscription: Subscription | undefined;
+  accountTypeFilter$!: Observable<string | null>;
 
   constructor(private readonly store: Store) {}
   ngOnInit(): void {
     this.userInfos$ = this.store.select(selectUser);
-    this.userInfoSubscription = this.userInfos$.subscribe((user) => {
-      if (user) {
-        const id = user.id;
-        this.store.dispatch(getUserTransactions({ id: id.toString() }));
-      }
-    });
+    this.store.dispatch(getUserTransactions());
+
     this.userTransactions$ = this.store.select(selectTransactions);
+    this.accountTypeFilter$ = this.store.select(selectAccountTypeFilter);
   }
 
   ngOnDestroy(): void {
@@ -46,5 +44,4 @@ export class TransationsTableComponent implements OnInit, OnDestroy {
     'createdAt',
     'status',
   ];
-  dataSource = [];
 }

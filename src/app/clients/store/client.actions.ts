@@ -23,10 +23,7 @@ export const GetUser_success = createAction(
   props<{ payload: UserDataResponse }>()
 );
 
-export const getUserAccounts = createAction(
-  '[Client] getUserAccounts',
-  props<{ id: string }>()
-);
+export const getUserAccounts = createAction('[Client] getUserAccounts');
 
 export const getUserAccounts_failed = createAction(
   '[Client] getUserAccounts failed',
@@ -71,10 +68,7 @@ export const createTransaction_failed = createAction(
   props<{ error: string }>()
 );
 
-export const getUserTransactions = createAction(
-  '[Client] getTransactions',
-  props<{ id: string }>()
-);
+export const getUserTransactions = createAction('[Client] getTransactions');
 
 export const getUserTransactions_success = createAction(
   '[Client] getTransactions success',
@@ -84,4 +78,14 @@ export const getUserTransactions_success = createAction(
 export const getUserTransactions_failed = createAction(
   '[Client] getTransactions failed',
   props<{ error: string }>()
+);
+
+export const setAccountTypeFilter = createAction(
+  '[Client] Set Account Type Filter',
+  props<{ filter: string }>()
+);
+
+export const filterTransactions = createAction(
+  '[Transactions] Filter Transactions',
+  props<{ filters: unknown }>()
 );

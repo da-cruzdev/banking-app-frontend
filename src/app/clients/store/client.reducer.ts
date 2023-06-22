@@ -4,7 +4,7 @@ import { UserDataResponse } from 'src/app/shared/interfaces/user.interfaces';
 import { AccountsDataResponse } from 'src/app/shared/interfaces/accounts.interfaces';
 import { TransactionData } from 'src/app/shared/interfaces/transactions.interfaces';
 
-interface State {
+export interface State {
   user: UserDataResponse | null;
   loading: boolean;
   error: string | null;
@@ -12,6 +12,8 @@ interface State {
   subAccounts: AccountsDataResponse[] | null;
   message: string | null;
   transactions: TransactionData[];
+  accountTypeFilter: string | null;
+  filters: unknown;
 }
 
 const initialState: State = {
@@ -22,6 +24,8 @@ const initialState: State = {
   subAccounts: null,
   message: null,
   transactions: [],
+  accountTypeFilter: null,
+  filters: null,
 };
 
 export const clientFeature = createFeature({
@@ -99,6 +103,14 @@ export const clientFeature = createFeature({
       ...state,
       error,
       loading: false,
+    })),
+    on(ClientActions.setAccountTypeFilter, (state, { filter }) => ({
+      ...state,
+      accountTypeFilter: filter,
+    })),
+    on(ClientActions.filterTransactions, (state, { filters }) => ({
+      ...state,
+      filters,
     }))
   ),
 });
@@ -113,4 +125,5 @@ export const {
   selectSubAccounts,
   selectMessage,
   selectTransactions,
+  selectFilters,
 } = clientFeature;
