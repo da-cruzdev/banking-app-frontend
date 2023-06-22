@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import * as AuthActions from './auth.actions';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import * as jwt_decode from 'jwt-decode';
 
 @Injectable()
 export class AuthEffects {

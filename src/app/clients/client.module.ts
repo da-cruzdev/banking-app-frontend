@@ -11,7 +11,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { ClientEffects } from './store/client.effects';
 import { AccountTypePipe } from '../shared/pipes/account-type.pipe';
 import { FilterTransactionListComponent } from './transations-list/components/filter/filter-transaction-list.component';
-import { TransationsTableComponent } from './transations-list/components/table/transations-list.component';
 import { TransactionsListComponent } from './transations-list/containers/transactions-list/transactions-list.component';
 import { TransactionTransfertComponent } from './transaction-transfert/transaction-transfert.component';
 import { TransactionDebitComponent } from './transaction-debit/transaction-debit.component';
@@ -19,6 +18,7 @@ import { DialogSuccessComponent } from './transations-list/components/dialogs/di
 import { DialogFailedComponent } from './transations-list/components/dialogs/dialog-failed/dialog-failed.component';
 import { TransactionStatusPipe } from '../shared/pipes/transaction-status.pipe';
 import { AccountTypeFilterPipe } from '../shared/pipes/account-type-filter.pipe';
+import { TransationsTableComponent } from './transations-list/components/table/transations-list.component';
 
 @NgModule({
   declarations: [
@@ -29,9 +29,9 @@ import { AccountTypeFilterPipe } from '../shared/pipes/account-type-filter.pipe'
     AccountTypeFilterPipe,
     TransactionStatusPipe,
     FilterTransactionListComponent,
-    TransationsTableComponent,
     TransactionsListComponent,
     TransactionTransfertComponent,
+    TransationsTableComponent,
     TransactionDebitComponent,
     DialogSuccessComponent,
     DialogFailedComponent,
