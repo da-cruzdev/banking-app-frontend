@@ -41,6 +41,9 @@
               <mat-error *ngIf="hasControlError('name', 'minlength')"
                 >Le nom doit avoir au moins 3 caratères</mat-error
               >
+              <mat-error *ngIf="hasControlError('name', 'maxlength')"
+                >Le nom doit avoir au maximum 50 caratères</mat-error
+              >
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>Email</mat-label>
@@ -69,7 +72,14 @@
                 [type]="hidePassword ? 'password' : 'text'"
                 formControlName="password"
               />
-              <mat-icon matSuffix (click)="togglePasswordVisibility()">
+              <mat-icon
+                matSuffix
+                [ngClass]="{
+                  'valid-icon': isControlValid('password'),
+                  'invalid-icon': isControlInvalid('password')
+                }"
+                (click)="togglePasswordVisibility()"
+              >
                 {{ hidePassword ? "visibility_off" : "visibility" }}
               </mat-icon>
               <mat-error *ngIf="hasControlError('password', 'required')"

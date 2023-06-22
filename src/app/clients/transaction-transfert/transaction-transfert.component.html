@@ -5,6 +5,7 @@
         mat-menu-item
         *ngFor="let account of accounts"
         (click)="updateSelectedAccount(account)"
+        class="title"
       >
         {{ account.accountType | accountType }}
       </button>

@@ -11,7 +11,11 @@
     <div class="dialog__msg">Désolé votre transaction a échoué</div>
 
     <div class="dialog__button">
-      <button mat-stroked-button routerLink="/dashboard/list" class="buton">
+      <button
+        mat-stroked-button
+        routerLink="/dashboard/list"
+        (click)="closeDialog()"
+      >
         Quitter
       </button>
     </div>

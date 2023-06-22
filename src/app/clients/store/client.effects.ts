@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { RegisterComponent } from 'src/app/auth/register/register.component';
 import { DialogSuccessComponent } from '../transations-list/components/dialogs/dialog-success/dialog-success.component';
 import { DialogFailedComponent } from '../transations-list/components/dialogs/dialog-failed/dialog-failed.component';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class ClientEffects {
@@ -62,8 +63,7 @@ export class ClientEffects {
       exhaustMap(({ payload }) =>
         this.clientService.createSubAccount(payload).pipe(
           map((response) => {
-            console.log(response);
-
+            // this.store.dispatch(ClientActions.getUserAccounts())
             return ClientActions.createSubAccount_success({
               payload: response,
             });
@@ -138,6 +138,7 @@ export class ClientEffects {
     private readonly actions$: Actions,
     private readonly toastrService: ToastrService,
     private readonly clientService: ClientService,
-    private readonly dialog: MatDialog
+    private readonly dialog: MatDialog,
+    private readonly store: Store
   ) {}
 }
