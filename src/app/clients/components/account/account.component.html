@@ -67,16 +67,9 @@
       <mat-icon class="click-btn">more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu" xPosition="after">
-      <button mat-menu-item class="menu" (click)="createSubAccount('savings')">
-        Ajouter un compte épargne
-      </button>
-      <button
-        mat-menu-item
-        matIconSuffix
-        class="menu"
-        (click)="createSubAccount('blocked')"
-      >
-        Ajouter un compte bloqué
+      <button mat-menu-item class="menu">Bloquer le compte</button>
+      <button mat-menu-item matIconSuffix class="menu">
+        Débloquer le compte
       </button>
     </mat-menu>
   </div>

@@ -16,6 +16,7 @@ import { selectUser } from 'src/app/clients/store/client.selectors';
 })
 export class RedirectAuthGuard implements CanActivate {
   user!: any;
+
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -30,18 +31,8 @@ export class RedirectAuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (!this.authService.isLoggedIn()) {
-      return true;
-    } else {
-      this.store.select(selectUser).subscribe((user) => {
-        this.user = user;
-      });
-      const role = this.user.role;
-      if (role !== 'SuperAdmin') {
-        return this.router.navigate(['/dashboard']);
-      } else {
-        return this.router.navigate(['/admin/dashboard']);
-      }
-    }
+    return this.authService.isLoggedIn()
+      ? this.router.navigate(['/dashboard'])
+      : true;
   }
 }
