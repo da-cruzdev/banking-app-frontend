@@ -1,11 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { getAllTransactions } from '../store/admin.actions';
+import {
+  getAllTransactions,
+  rejectTransaction,
+  validateTransaction,
+} from '../store/admin.actions';
 import { TransactionData } from 'src/app/shared/interfaces/transactions.interfaces';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { selectAllTransactions } from '../store/admin.reducer';
+import {
+  selectAllTransactions,
+  selectTransaction,
+} from '../store/admin.reducer';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -15,6 +22,7 @@ import { selectAllTransactions } from '../store/admin.reducer';
 export class DashboardAdminComponent implements OnInit {
   accountTypeFilter$!: Observable<string | null>;
   allTransactions$!: Observable<TransactionData[]>;
+  transacction$!: TransactionData;
 
   constructor(
     private readonly store: Store,
@@ -33,6 +41,15 @@ export class DashboardAdminComponent implements OnInit {
     this.router.navigate(['/auth/login']);
   }
 
+  validateTransaction(id: string) {
+    this.store.dispatch(validateTransaction({ id: id.toString() }));
+  }
+  rejectTransaction(id: string) {
+    console.log('rejété===>');
+
+    this.store.dispatch(rejectTransaction({ id: id.toString() }));
+  }
+
   displayedColumns: string[] = [
     'accountIbanEmitter',
     'transactionType',
@@ -40,5 +57,6 @@ export class DashboardAdminComponent implements OnInit {
     'accountReceiver',
     'createdAt',
     'status',
+    'actions',
   ];
 }

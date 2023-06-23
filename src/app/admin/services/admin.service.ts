@@ -16,4 +16,31 @@ export class AdminService {
       headers: new HttpHeaders().set('Authorization', `Bearer ${token}`),
     });
   }
+
+  validateTransaction(id: string) {
+    const token = localStorage.getItem('@token');
+    return this.httpClient.get<TransactionData>(
+      this.url + `/transactions/${id}/validate`,
+      {
+        headers: new HttpHeaders().set('Authorization', `Bearer ${token}`),
+      }
+    );
+  }
+
+  rejectTransaction(id: string) {
+    const token = localStorage.getItem('@token');
+    return this.httpClient.get<TransactionData>(
+      this.url + `/transactions/${id}/reject`,
+      {
+        headers: new HttpHeaders().set('Authorization', `Bearer ${token}`),
+      }
+    );
+  }
+
+  updateTransaction(id: number) {
+    const token = localStorage.getItem('@token');
+    return this.httpClient.post(this.url + `/transactions/${id}/update`, {
+      headers: new HttpHeaders().set('Authorization', `Bearer ${token}`),
+    });
+  }
 }

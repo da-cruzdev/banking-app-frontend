@@ -31,6 +31,61 @@ export class AdminEffects {
     )
   );
 
+  validateTransactions$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AdminActions.validateTransaction),
+      exhaustMap(({ id }) =>
+        this.adminService.validateTransaction(id).pipe(
+          map((response) => {
+            console.log(response);
+            this.toastrService.success('Transaction validée');
+            return AdminActions.validateTransaction_succes({
+              transaction: response,
+            });
+          }),
+          catchError((error) => {
+            this.toastrService.error(error.error.error, 'Erreur');
+            return of(AdminActions.getAllTransactions_failed({ error: error }));
+          })
+        )
+      )
+    )
+  );
+
+  validateTransactionsSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AdminActions.validateTransaction_succes),
+        exhaustMap(({ transaction }) =>
+          this.adminService
+            .updateTransaction(transaction.id)
+            .pipe(map((response) => {}))
+        )
+      ),
+    { dispatch: false }
+  );
+
+  rejectTransactions$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AdminActions.rejectTransaction),
+      exhaustMap(({ id }) =>
+        this.adminService.rejectTransaction(id).pipe(
+          map((response) => {
+            console.log(response);
+            this.toastrService.success('Transaction réjetéé');
+            return AdminActions.rejectTransaction_succes({
+              transaction: response,
+            });
+          }),
+          catchError((error) => {
+            this.toastrService.error(error.error.error, 'Erreur');
+            return of(AdminActions.rejectTransaction_failed({ error: error }));
+          })
+        )
+      )
+    )
+  );
+
   constructor(
     private readonly actions$: Actions,
     private readonly toastrService: ToastrService,

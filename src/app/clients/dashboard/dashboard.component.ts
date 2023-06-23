@@ -82,7 +82,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.mainAccount$.subscribe((accounts) => {
       if (accounts && accounts) {
         const accountIban = accounts.iban;
-        console.log(accountIban);
 
         const payload: createSubAccountData = { accountIban, accountType };
         this.store.dispatch(createSubAccount({ payload }));
