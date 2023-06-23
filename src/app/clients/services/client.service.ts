@@ -21,7 +21,7 @@ export class ClientService {
   getUser() {
     const token = localStorage.getItem('@token');
     return this.httpClient.get<{ user: UserDataResponse }>(this.url + '/user', {
-      headers: new HttpHeaders().set('Authorization', `${token}`),
+      headers: new HttpHeaders().set('Authorization', `Bearer ${token}`),
     });
   }
 
@@ -31,7 +31,7 @@ export class ClientService {
       mainAccount: AccountsDataResponse;
       subAccounts: AccountsDataResponse[];
     }>(this.url + `/users/accounts`, {
-      headers: new HttpHeaders().set('Authorization', `${token}`),
+      headers: new HttpHeaders().set('Authorization', `Bearer ${token}`),
     });
   }
 
@@ -56,18 +56,19 @@ export class ClientService {
 
     return this.httpClient.post(this.url + '/transactions/create', data, {
       headers: new HttpHeaders({
-        Authorization: `${token}`,
+        Authorization: `Bearer ${token}`,
 
         'Content-Type': 'application/json',
       }),
     });
   }
 
-  getUserTransactions() {
+  getUserTransactions(filterOptions: Record<string, string>) {
     const token = localStorage.getItem('@token');
     return this.httpClient.get<TransactionData[]>(
       this.url + `/users/transactions`,
       {
+        params: filterOptions,
         headers: new HttpHeaders().set('Authorization', `${token}`),
       }
     );

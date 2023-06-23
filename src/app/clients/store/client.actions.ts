@@ -68,7 +68,10 @@ export const createTransaction_failed = createAction(
   props<{ error: string }>()
 );
 
-export const getUserTransactions = createAction('[Client] getTransactions');
+export const getUserTransactions = createAction(
+  '[Client] getTransactions',
+  props<{ filterOptions: Record<string, string> }>()
+);
 
 export const getUserTransactions_success = createAction(
   '[Client] getTransactions success',

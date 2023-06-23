@@ -79,3 +79,31 @@ tr.mat-mdc-header-row.mdc-data-table__header-row.cdk-header-row.ng-star-inserted
   width: 90%;
   margin: 3rem auto;
 }
+
+.logout-btn {
+  width: 16rem;
+  height: 3rem;
+  background: rgba(255, 0, 96, 0.1);
+  border: none;
+  border-radius: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  margin-left: 18rem;
+  bottom: 1.3rem;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &-text {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 1.2rem;
+    line-height: 1rem;
+    color: #ff0060;
+    // margin-right: 2.8rem;
+    margin-top: 1rem;
+  }
+}

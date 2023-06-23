@@ -113,9 +113,9 @@ export class ClientEffects {
 
   getUserTransactions$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(ClientActions.getUserTransactions),
-      exhaustMap(() =>
-        this.clientService.getUserTransactions().pipe(
+      ofType(ClientActions.getUserTransactions.type),
+      exhaustMap(({ filterOptions }) =>
+        this.clientService.getUserTransactions(filterOptions).pipe(
           map((response) => {
             return ClientActions.getUserTransactions_success({
               payload: response,

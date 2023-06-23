@@ -39,7 +39,7 @@ export class AuthService {
   }
 
   login(data: UserLoginData) {
-    return this.httpClient.post<{ token: string }>(
+    return this.httpClient.post<UserDataResponse>(
       this.url + '/auth/login',
       data,
       {

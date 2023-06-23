@@ -27,7 +27,7 @@ export class TransationsTableComponent implements OnInit, OnDestroy {
   constructor(private readonly store: Store) {}
   ngOnInit(): void {
     this.userInfos$ = this.store.select(selectUser);
-    this.store.dispatch(getUserTransactions());
+    this.store.dispatch(getUserTransactions({ filterOptions: {} }));
 
     this.userTransactions$ = this.store.select(selectTransactions);
     this.accountTypeFilter$ = this.store.select(selectAccountTypeFilter);

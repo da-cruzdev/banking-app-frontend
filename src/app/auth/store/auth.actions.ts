@@ -24,7 +24,7 @@ export const LOGIN_FAILED = createAction('[Auth] Login failed');
 
 export const LOGIN_SUCCESS = createAction(
   '[Auth] Login success',
-  props<{ token: string }>()
+  props<{ user: UserDataResponse }>()
 );
 
 export const logout = createAction('[Auth] Logout');

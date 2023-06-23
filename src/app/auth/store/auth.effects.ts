@@ -7,6 +7,9 @@ import * as AuthActions from './auth.actions';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import * as jwt_decode from 'jwt-decode';
+import { Store } from '@ngrx/store';
+import { GetUser } from 'src/app/clients/store/client.actions';
+import { selectUser } from './auth.reducer';
 
 @Injectable()
 export class AuthEffects {
@@ -39,23 +42,34 @@ export class AuthEffects {
       exhaustMap(({ payload }) =>
         this.authService.login(payload).pipe(
           map((response) => {
-            this.toastrService.success(
-              'Vous êtes connecté a votre compte avec succès'
-            );
-            console.log(response);
-
-            this.router.navigate(['/dashboard']);
-            localStorage.setItem('@token', response.token);
-
-            return AuthActions.LOGIN_SUCCESS({ token: response.token });
+            return AuthActions.LOGIN_SUCCESS({ user: response });
           }),
           catchError((error) => {
-            this.toastrService.error(error.error.error, 'Erreur');
+            console.log(error, ' error');
+            //this.toastrService.error(error.error.error, 'Erreur');
             return of(AuthActions.LOGIN_FAILED());
           })
         )
       )
     )
+  );
+
+  loginSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.LOGIN_SUCCESS),
+        map(({ user }) => {
+          console.log(user.token, user);
+          localStorage.setItem('@token', user.token as string);
+
+          if (user.role === 'SuperAdmin') {
+            this.router.navigate(['/admin/dashboard']);
+          } else {
+            this.router.navigate(['/dashboard']);
+          }
+        })
+      ),
+    { dispatch: false }
   );
 
   logout$ = createEffect(() =>
@@ -85,6 +99,7 @@ export class AuthEffects {
     private readonly actions$: Actions,
     private readonly authService: AuthService,
     private readonly toastrService: ToastrService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly store: Store
   ) {}
 }

@@ -18,7 +18,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
-import { JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [],
@@ -43,7 +42,6 @@ import { JwtModule } from '@auth0/angular-jwt';
     MatDialogModule,
     MatMenuModule,
     MatTooltipModule,
-    JwtModule,
   ],
 })
 export class SharedModule {}

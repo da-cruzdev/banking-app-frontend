@@ -15,6 +15,7 @@ export interface UserDataResponse {
   slug: string;
   email: string;
   token?: string;
+  role: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
