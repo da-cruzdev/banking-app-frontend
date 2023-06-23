@@ -11,7 +11,6 @@ import {
 } from 'rxjs/operators';
 import { of } from 'rxjs';
 
-import { Store } from '@ngrx/store';
 import { AdminService } from '../services/admin.service';
 
 @Injectable()

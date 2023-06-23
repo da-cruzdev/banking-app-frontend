@@ -5,6 +5,7 @@
     <mat-form-field appearance="outline" class="mat-select-content--1">
       <mat-label>Type de compte</mat-label>
       <mat-select (selectionChange)="onAccountTypeChange($event.value)">
+        <mat-option value="">Aucun</mat-option>
         <mat-option value="current">Courant</mat-option>
         <mat-option value="savings">épargne</mat-option>
         <mat-option value="blocked">Bloqué</mat-option>
@@ -13,8 +14,9 @@
     <mat-form-field appearance="outline" class="mat-select-content--2">
       <mat-label>Statut</mat-label>
       <mat-select (selectionChange)="onStatusChange($event.value)">
+        <mat-option value="">Aucun</mat-option>
         <mat-option value="in process">En cours de traitement</mat-option>
-        <mat-option value="approved">Approuvée</mat-option>
+        <mat-option value="approved">Acceptée</mat-option>
         <mat-option value="rejected">Réjetée</mat-option>
       </mat-select>
     </mat-form-field>

@@ -45,8 +45,7 @@ export class AuthEffects {
             return AuthActions.LOGIN_SUCCESS({ user: response });
           }),
           catchError((error) => {
-            console.log(error, ' error');
-            //this.toastrService.error(error.error.error, 'Erreur');
+            this.toastrService.error(error.error.error, 'Erreur');
             return of(AuthActions.LOGIN_FAILED());
           })
         )

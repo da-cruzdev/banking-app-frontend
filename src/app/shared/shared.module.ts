@@ -18,7 +18,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
-import { TransactionStatusPipe } from './pipes/transaction-status.pipe';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [],
@@ -43,6 +43,7 @@ import { TransactionStatusPipe } from './pipes/transaction-status.pipe';
     MatDialogModule,
     MatMenuModule,
     MatTooltipModule,
+    MatPaginatorModule,
   ],
 })
 export class SharedModule {}

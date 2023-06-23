@@ -19,7 +19,7 @@
         <mat-select (selectionChange)="onStatusChange($event.value)">
           <mat-option selected value="">Aucun</mat-option>
           <mat-option value="in process">En cours de traitement</mat-option>
-          <mat-option value="approved">Approuvée</mat-option>
+          <mat-option value="approved">Acceptée</mat-option>
           <mat-option value="rejected">Réjetée</mat-option>
         </mat-select>
       </mat-form-field>
@@ -117,6 +117,13 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
+    <mat-paginator
+      [length]="10"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10]"
+      aria-label="Select page"
+    >
+    </mat-paginator>
   </div>
 
   <button class="logout-btn" (click)="logout()">
