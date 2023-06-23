@@ -63,7 +63,7 @@ export class ClientEffects {
       exhaustMap(({ payload }) =>
         this.clientService.createSubAccount(payload).pipe(
           map((response) => {
-            // this.store.dispatch(ClientActions.getUserAccounts());
+            this.store.dispatch(ClientActions.getUserAccounts());
             return ClientActions.createSubAccount_success({
               payload: response,
             });

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import {
   GetUser,
   createSubAccount,
@@ -49,16 +49,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.userInfo$ = this.store.select(selectUser);
     this.store.dispatch(getUserAccounts());
 
-    // this.userInfoSubscription = this.userInfo$.subscribe((userInfo) => {
-    //   if (userInfo) {
-    //     const id = userInfo.id;
-    //   }
-    // });
-
     this.mainAccount$ = this.store.select(selectMainAccount);
     this.mainAccountSubscription = this.mainAccount$.subscribe();
 
-    this.subAccounts$ = this.store.select(selectSubAccounts);
+    this.subAccounts$ = this.store.pipe(select(selectSubAccounts));
     this.subAccountsSubscription = this.subAccounts$.subscribe(
       (subAccounts) => {
         this.subAccountsToShow = subAccounts?.slice(0, 2) || [];

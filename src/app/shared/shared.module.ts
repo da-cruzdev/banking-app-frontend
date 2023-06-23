@@ -18,6 +18,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
+import { TransactionStatusPipe } from './pipes/transaction-status.pipe';
 
 @NgModule({
   declarations: [],

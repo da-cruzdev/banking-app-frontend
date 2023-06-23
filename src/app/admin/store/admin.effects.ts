@@ -2,7 +2,13 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as AdminActions from './admin.actions';
 import { ToastrService } from 'ngx-toastr';
-import { catchError, exhaustMap, map } from 'rxjs/operators';
+import {
+  catchError,
+  concatMap,
+  exhaustMap,
+  map,
+  mergeMap,
+} from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import { Store } from '@ngrx/store';
@@ -34,16 +40,21 @@ export class AdminEffects {
       ofType(AdminActions.validateTransaction),
       exhaustMap(({ id }) =>
         this.adminService.validateTransaction(id).pipe(
-          map((response) => {
+          mergeMap((response) => {
             console.log(response);
             this.toastrService.success('Transaction validée');
-            return AdminActions.validateTransaction_succes({
-              transaction: response,
-            });
+            return [
+              AdminActions.validateTransaction_succes({
+                transaction: response,
+              }),
+              AdminActions.validateTransaction_failed({ error: '' }),
+            ];
           }),
           catchError((error) => {
             this.toastrService.error(error.error.error, 'Erreur');
-            return of(AdminActions.getAllTransactions_failed({ error: error }));
+            return of(
+              AdminActions.validateTransaction_failed({ error: error })
+            );
           })
         )
       )
@@ -54,7 +65,7 @@ export class AdminEffects {
     () =>
       this.actions$.pipe(
         ofType(AdminActions.validateTransaction_succes),
-        exhaustMap(({ transaction }) =>
+        concatMap(({ transaction }) =>
           this.adminService
             .updateTransaction(transaction.id)
             .pipe(map((response) => {}))
@@ -87,7 +98,6 @@ export class AdminEffects {
   constructor(
     private readonly actions$: Actions,
     private readonly toastrService: ToastrService,
-    private readonly adminService: AdminService,
-    private readonly store: Store
+    private readonly adminService: AdminService
   ) {}
 }
