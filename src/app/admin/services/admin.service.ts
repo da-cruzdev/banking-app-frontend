@@ -10,38 +10,25 @@ export class AdminService {
   url = environment.apiUrl;
   constructor(private readonly httpClient: HttpClient) {}
 
-  getAllTransactions(filterOptions: Record<string, string>) {
-    const token = localStorage.getItem('@token');
+  getAllTransactions(params: Record<string, string>) {
     return this.httpClient.get<TransactionData[]>(this.url + '/transactions', {
-      params: filterOptions,
-      headers: new HttpHeaders().set('Authorization', `Bearer ${token}`),
+      params,
     });
   }
 
   validateTransaction(id: string) {
-    const token = localStorage.getItem('@token');
     return this.httpClient.get<TransactionData>(
-      this.url + `/transactions/${id}/validate`,
-      {
-        headers: new HttpHeaders().set('Authorization', `Bearer ${token}`),
-      }
+      this.url + `/transactions/${id}/validate`
     );
   }
 
   rejectTransaction(id: string) {
-    const token = localStorage.getItem('@token');
     return this.httpClient.get<TransactionData>(
-      this.url + `/transactions/${id}/reject`,
-      {
-        headers: new HttpHeaders().set('Authorization', `Bearer ${token}`),
-      }
+      this.url + `/transactions/${id}/reject`
     );
   }
 
   updateTransaction(id: number) {
-    const token = localStorage.getItem('@token');
-    return this.httpClient.post(this.url + `/transactions/${id}/update`, {
-      headers: new HttpHeaders().set('Authorization', `Bearer ${token}`),
-    });
+    return this.httpClient.post(this.url + `/transactions/${id}/update`, {});
   }
 }

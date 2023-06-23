@@ -31,20 +31,14 @@ export class AuthService {
   signUp(data: UserSignupData) {
     return this.httpClient.post<{ user: UserDataResponse }>(
       this.url + '/auth/signup',
-      data,
-      {
-        headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      }
+      data
     );
   }
 
   login(data: UserLoginData) {
     return this.httpClient.post<UserDataResponse>(
       this.url + '/auth/login',
-      data,
-      {
-        headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      }
+      data
     );
   }
 
@@ -62,9 +56,7 @@ export class AuthService {
 
   verifyForgotPass(data: any) {
     return this.httpClient
-      .post<httpResponse>(this.url + '/auth/forget-password', data, {
-        headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      })
+      .post<httpResponse>(this.url + '/auth/forget-password', data)
       .pipe(
         tap((response) => {
           console.log(response);

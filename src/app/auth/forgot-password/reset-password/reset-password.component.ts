@@ -60,7 +60,6 @@ export class ResetPasswordComponent {
 
   get isMisMatchPassword(): boolean {
     const value = isMisMatchPassword(this.resetPassForm);
-    // console.log(value, ' ok');
     return value;
   }
 

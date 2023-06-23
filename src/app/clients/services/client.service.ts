@@ -19,58 +19,31 @@ export class ClientService {
   constructor(private readonly httpClient: HttpClient) {}
 
   getUser() {
-    const token = localStorage.getItem('@token');
-    return this.httpClient.get<{ user: UserDataResponse }>(this.url + '/user', {
-      headers: new HttpHeaders().set('Authorization', `Bearer ${token}`),
-    });
+    return this.httpClient.get<{ user: UserDataResponse }>(this.url + '/user');
   }
 
   getUserAccounts() {
-    const token = localStorage.getItem('@token');
     return this.httpClient.get<{
       mainAccount: AccountsDataResponse;
       subAccounts: AccountsDataResponse[];
-    }>(this.url + `/users/accounts`, {
-      headers: new HttpHeaders().set('Authorization', `Bearer ${token}`),
-    });
+    }>(this.url + `/users/accounts`);
   }
 
   createSubAccount(data: createSubAccountData) {
-    const token = localStorage.getItem('@token');
-
     return this.httpClient.post<AccountsDataResponse>(
       this.url + '/accounts/subaccounts/create',
-      data,
-      {
-        headers: new HttpHeaders({
-          Authorization: `${token}`,
-
-          'Content-Type': 'application/json',
-        }),
-      }
+      data
     );
   }
 
   createTransaction(data: CreateTransactionData) {
-    const token = localStorage.getItem('@token');
-
-    return this.httpClient.post(this.url + '/transactions/create', data, {
-      headers: new HttpHeaders({
-        Authorization: `Bearer ${token}`,
-
-        'Content-Type': 'application/json',
-      }),
-    });
+    return this.httpClient.post(this.url + '/transactions/create', data);
   }
 
-  getUserTransactions(filterOptions: Record<string, string>) {
-    const token = localStorage.getItem('@token');
+  getUserTransactions(params: Record<string, string>) {
     return this.httpClient.get<TransactionData[]>(
       this.url + `/users/transactions`,
-      {
-        params: filterOptions,
-        headers: new HttpHeaders().set('Authorization', `${token}`),
-      }
+      { params }
     );
   }
 }

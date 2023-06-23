@@ -59,7 +59,6 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(AuthActions.LOGIN_SUCCESS),
         map(({ user }) => {
-          console.log(user.token, user);
           localStorage.setItem('@token', user.token as string);
 
           if (user.role === 'SuperAdmin') {
