@@ -19,6 +19,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [],
@@ -44,6 +45,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatMenuModule,
     MatTooltipModule,
     MatPaginatorModule,
+    MatGridListModule,
   ],
 })
 export class SharedModule {}

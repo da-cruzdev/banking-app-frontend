@@ -16,9 +16,9 @@ import { TransactionTransfertComponent } from './transaction-transfert/transacti
 import { TransactionDebitComponent } from './transaction-debit/transaction-debit.component';
 import { DialogSuccessComponent } from './transations-list/components/dialogs/dialog-success/dialog-success.component';
 import { DialogFailedComponent } from './transations-list/components/dialogs/dialog-failed/dialog-failed.component';
-import { TransactionStatusPipe } from '../shared/pipes/transaction-status.pipe';
 import { AccountTypeFilterPipe } from '../shared/pipes/account-type-filter.pipe';
 import { TransationsTableComponent } from './transations-list/components/table/transations-list.component';
+import { TransactionStatusPipe } from '../shared/pipes/transaction-status.pipe';
 
 @NgModule({
   declarations: [

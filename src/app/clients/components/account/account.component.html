@@ -60,9 +60,12 @@
       </div>
       <p class="p-content" *ngIf="!showBalance">..........</p>
     </div>
-    <mat-icon matSuffix (click)="toggleBalanceVisibility()">
+    <mat-icon class="show" matSuffix (click)="toggleBalanceVisibility()">
       {{ showBalance ? "visibility_off" : "visibility" }}
     </mat-icon>
+    <mat-icon class="ms-2" *ngIf="subAccountData.accountType == 'blocked'"
+      >lock</mat-icon
+    >
     <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon class="click-btn">more_vert</mat-icon>
     </button>

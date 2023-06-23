@@ -11,28 +11,29 @@
 
   &__infos {
     display: flex;
-    // flex-direction: column;
     justify-content: space-between;
     align-items: center;
   }
   &__type {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
   }
 
   &__number {
     margin-top: 6px;
     margin-right: 1rem;
+    flex: 0 0 1;
   }
 
   &__ammount {
-    width: 10rem;
-    margin-top: 6px;
+    text-align: center;
+    height: 5rem;
+    margin-top: 8px;
     margin-right: -5px;
   }
 }
 
 .p-title {
-  font-size: 1.1rem;
+  font-size: 1rem;
   margin-bottom: -5px;
 }
 
@@ -40,8 +41,9 @@
   font-weight: bold;
 }
 
-mat-icon {
-  margin-right: 1.3rem;
+.show {
+  margin-left: 0.5rem !important;
+  margin-top: 0.6rem;
 }
 
 .click-btn {
