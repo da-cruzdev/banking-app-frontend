@@ -13,6 +13,7 @@ import {
   selectAllTransactions,
   selectTransaction,
 } from '../store/admin.reducer';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -22,15 +23,27 @@ import {
 export class DashboardAdminComponent implements OnInit {
   accountTypeFilter$!: Observable<string | null>;
   allTransactions$!: Observable<TransactionData[]>;
-  transacction$!: TransactionData;
+  transaction$!: TransactionData;
+  filterOptions: Record<string, string> = {};
+
+  filterFields = {
+    accountType: 'accountType',
+    status: 'status',
+    date: 'date',
+    query: 'query',
+  };
 
   constructor(
     private readonly store: Store,
     private readonly toastrService: ToastrService,
     private readonly router: Router
   ) {}
+
   ngOnInit(): void {
-    this.store.dispatch(getAllTransactions());
+    this.store.dispatch(
+      getAllTransactions({ filterOptions: this.filterOptions })
+    );
+
     this.allTransactions$ = this.store.select(selectAllTransactions);
   }
 
@@ -44,10 +57,51 @@ export class DashboardAdminComponent implements OnInit {
   validateTransaction(id: string) {
     this.store.dispatch(validateTransaction({ id: id.toString() }));
   }
-  rejectTransaction(id: string) {
-    console.log('rejété===>');
 
+  rejectTransaction(id: string) {
     this.store.dispatch(rejectTransaction({ id: id.toString() }));
+  }
+
+  onAccountTypeChange(value: string) {
+    this.filterOptions = {
+      ...this.filterOptions,
+      [this.filterFields.accountType]: value,
+    };
+
+    this.refreshTransactions();
+  }
+
+  onStatusChange(value: string) {
+    this.filterOptions = {
+      ...this.filterOptions,
+      [this.filterFields.status]: value,
+    };
+
+    this.refreshTransactions();
+  }
+
+  onDateChange($event: MatDatepickerInputEvent<Date>) {
+    this.filterOptions = {
+      ...this.filterOptions,
+      [this.filterFields.date]: new Date($event.value!).toISOString(),
+    };
+
+    this.refreshTransactions();
+  }
+
+  onQueryChange(value: string) {
+    this.filterOptions = {
+      ...this.filterOptions,
+      [this.filterFields.query]: value,
+    };
+
+    this.refreshTransactions();
+  }
+
+  private refreshTransactions() {
+    this.store.dispatch(
+      getAllTransactions({ filterOptions: this.filterOptions })
+    );
   }
 
   displayedColumns: string[] = [

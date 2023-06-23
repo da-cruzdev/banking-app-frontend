@@ -7,7 +7,8 @@
     <div class="filter">
       <mat-form-field appearance="outline" class="mat-select-content--1">
         <mat-label>Type de compte</mat-label>
-        <mat-select>
+        <mat-select (selectionChange)="onAccountTypeChange($event.value)">
+          <mat-option selected value="">Aucun</mat-option>
           <mat-option value="current">Courant</mat-option>
           <mat-option value="savings">épargne</mat-option>
           <mat-option value="blocked">Bloqué</mat-option>
@@ -15,15 +16,20 @@
       </mat-form-field>
       <mat-form-field appearance="outline" class="mat-select-content--2">
         <mat-label>Statut</mat-label>
-        <mat-select>
+        <mat-select (selectionChange)="onStatusChange($event.value)">
+          <mat-option selected value="">Aucun</mat-option>
           <mat-option value="in process">En cours de traitement</mat-option>
-          <mat-option value="rejected">Rejeté</mat-option>
-          <mat-option value="accepted">Accepté</mat-option>
+          <mat-option value="approved">Approuvée</mat-option>
+          <mat-option value="rejected">Réjetée</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="outline" class="mat-select-content--3">
         <mat-label>Calendrier</mat-label>
-        <input matInput [matDatepicker]="picker" />
+        <input
+          matInput
+          [matDatepicker]="picker"
+          (dateChange)="onDateChange($event)"
+        />
         <mat-datepicker-toggle
           matIconSuffix
           [for]="picker"
@@ -33,7 +39,11 @@
 
       <mat-form-field appearance="outline" class="mat-select-content--4">
         <mat-label>Rechercher par bénéficiaire ou par montant</mat-label>
-        <input matInput />
+        <input
+          matInput
+          #queryInput
+          (keydown.enter)="onQueryChange(queryInput.value)"
+        />
       </mat-form-field>
     </div>
   </mat-toolbar>

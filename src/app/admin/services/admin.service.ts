@@ -10,9 +10,10 @@ export class AdminService {
   url = environment.apiUrl;
   constructor(private readonly httpClient: HttpClient) {}
 
-  getAllTransactions() {
+  getAllTransactions(filterOptions: Record<string, string>) {
     const token = localStorage.getItem('@token');
     return this.httpClient.get<TransactionData[]>(this.url + '/transactions', {
+      params: filterOptions,
       headers: new HttpHeaders().set('Authorization', `Bearer ${token}`),
     });
   }

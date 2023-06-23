@@ -13,11 +13,9 @@ export class AdminEffects {
   getAllTransactions$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AdminActions.getAllTransactions),
-      exhaustMap(() =>
-        this.adminService.getAllTransactions().pipe(
+      exhaustMap(({ filterOptions }) =>
+        this.adminService.getAllTransactions(filterOptions).pipe(
           map((response) => {
-            console.log(response);
-
             return AdminActions.getAllTransactions_success({
               payload: response,
             });
