@@ -59,6 +59,7 @@ export class AuthEffects {
         ofType(AuthActions.LOGIN_SUCCESS),
         map(({ user }) => {
           localStorage.setItem('@token', user.token as string);
+          localStorage.setItem('@role', user.role);
 
           if (user.role === 'SuperAdmin') {
             this.router.navigate(['/admin/dashboard']);

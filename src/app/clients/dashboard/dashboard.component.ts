@@ -2,8 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import {
   GetUser,
+  blockSubAccount,
   createSubAccount,
   getUserAccounts,
+  unblockSubAccount,
 } from '../store/client.actions';
 import {
   selectMainAccount,
@@ -73,7 +75,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   handleSubAccountCreated(accountType: string) {
-    this.mainAccount$.subscribe((accounts) => {
+    this.mainAccountSubscription = this.mainAccount$.subscribe((accounts) => {
       if (accounts && accounts) {
         const accountIban = accounts.iban;
 
@@ -81,6 +83,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.store.dispatch(createSubAccount({ payload }));
       }
     });
+  }
+
+  onBlockSubAccount(iban: string) {
+    console.log(iban);
+
+    this.store.dispatch(blockSubAccount({ iban: iban }));
+  }
+
+  unBlockSubAccount(iban: string) {
+    this.store.dispatch(unblockSubAccount({ iban: iban }));
   }
 
   logout() {

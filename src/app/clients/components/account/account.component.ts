@@ -22,6 +22,11 @@ export class AccountComponent implements OnInit {
 
   @Output() subAccountCreated: EventEmitter<string> =
     new EventEmitter<string>();
+
+  @Output() handleSubAccountBlocked: EventEmitter<string> =
+    new EventEmitter<string>();
+  @Output() handleSubAccountUnblocked: EventEmitter<string> =
+    new EventEmitter<string>();
   constructor() {}
 
   ngOnInit(): void {}
@@ -32,5 +37,13 @@ export class AccountComponent implements OnInit {
 
   createSubAccount(accountType: string) {
     this.subAccountCreated.emit(accountType);
+  }
+
+  blockSubAccount(iban: string) {
+    this.handleSubAccountBlocked.emit(iban);
+  }
+
+  unblockSubAccount(iban: string) {
+    this.handleSubAccountUnblocked.emit(iban);
   }
 }

@@ -53,6 +53,36 @@ export const createSubAccount_success = createAction(
   props<{ payload: AccountsDataResponse }>()
 );
 
+export const blockSubAccount = createAction(
+  '[Client] blockSubAccount',
+  props<{ iban: string }>()
+);
+
+export const blockSubAccount_success = createAction(
+  '[Client] blockSubAccount success',
+  props<{ account: AccountsDataResponse }>()
+);
+
+export const blockSubAccount_failed = createAction(
+  '[Client] blockSubAccount failed',
+  props<{ error: string }>()
+);
+
+export const unblockSubAccount = createAction(
+  '[Client] unblockSubAccount',
+  props<{ iban: string }>()
+);
+
+export const unblockSubAccount_success = createAction(
+  '[Client] unblockSubAccount success',
+  props<{ account: AccountsDataResponse }>()
+);
+
+export const unblockSubAccount_failed = createAction(
+  '[Client] unblockSubAccount failed',
+  props<{ error: string }>()
+);
+
 export const createTransaction = createAction(
   '[Client] createTransaction',
   props<{ payload: CreateTransactionData }>()
@@ -70,7 +100,10 @@ export const createTransaction_failed = createAction(
 
 export const getUserTransactions = createAction(
   '[Client] getTransactions',
-  props<{ filterOptions: Record<string, string> }>()
+  props<{
+    filterOptions: Record<string, string>;
+    paginationOptions: Record<string, string>;
+  }>()
 );
 
 export const getUserTransactions_success = createAction(

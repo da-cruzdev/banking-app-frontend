@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { name } from 'src/app/auth/store/auth.reducer';
 import { getUserTransactions } from 'src/app/clients/store/client.actions';
 
 @Component({
@@ -9,14 +10,22 @@ import { getUserTransactions } from 'src/app/clients/store/client.actions';
 })
 export class TransactionsListComponent {
   filterOptions: Record<string, string> = {};
+  paginationOptions: Record<string, string> = {};
 
   constructor(private readonly store: Store) {}
 
   onFilter(options: Record<string, string>) {
-    this.filterOptions = { ...this.filterOptions, ...options };
+    this.filterOptions = {
+      ...this.filterOptions,
+      ...this.paginationOptions,
+      ...options,
+    };
 
     this.store.dispatch(
-      getUserTransactions({ filterOptions: this.filterOptions })
+      getUserTransactions({
+        filterOptions: this.filterOptions,
+        paginationOptions: this.paginationOptions,
+      })
     );
   }
 }

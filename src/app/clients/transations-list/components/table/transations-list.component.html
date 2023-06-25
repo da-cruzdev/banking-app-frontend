@@ -45,9 +45,10 @@
   </table>
 </div>
 <mat-paginator
-  [length]="10"
-  [pageSize]="10"
+  [length]=""
+  [pageSize]=""
   [pageSizeOptions]="[5, 10]"
+  (page)="onPageChange($event)"
   aria-label="Select page"
 >
 </mat-paginator>

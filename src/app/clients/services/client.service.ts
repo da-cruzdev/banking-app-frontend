@@ -36,11 +36,28 @@ export class ClientService {
     );
   }
 
+  blockSubAccount(iban: string) {
+    return this.httpClient.post<AccountsDataResponse>(
+      this.url + `/accounts/${iban}/block`,
+      {}
+    );
+  }
+
+  unblockSubAccount(iban: string) {
+    return this.httpClient.post<AccountsDataResponse>(
+      this.url + `/accounts/${iban}/unblock`,
+      {}
+    );
+  }
+
   createTransaction(data: CreateTransactionData) {
     return this.httpClient.post(this.url + '/transactions/create', data);
   }
 
-  getUserTransactions(params: Record<string, string>) {
+  getUserTransactions(
+    params: Record<string, string>
+    // param: Record<string, string>
+  ) {
     return this.httpClient.get<TransactionData[]>(
       this.url + `/users/transactions`,
       { params }

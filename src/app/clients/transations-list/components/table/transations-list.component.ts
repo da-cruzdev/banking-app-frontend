@@ -1,4 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import {
@@ -19,15 +26,25 @@ import { UserDataResponse } from 'src/app/shared/interfaces/user.interfaces';
   styleUrls: ['./transations-list.component.scss'],
 })
 export class TransationsTableComponent implements OnInit, OnDestroy {
+  @Output() onSubmitPage: EventEmitter<any> = new EventEmitter<any>();
+
   userTransactions$!: Observable<TransactionData[]>;
   userInfos$!: Observable<UserDataResponse | null>;
   userInfoSubscription: Subscription | undefined;
   accountTypeFilter$!: Observable<string | null>;
 
+  // paginationFilter = {
+  //   length: 'length',
+  //   pageSize: 'pageSize',
+  //   pageOptions: 'pageOptions',
+  // };
+
   constructor(private readonly store: Store) {}
   ngOnInit(): void {
     this.userInfos$ = this.store.select(selectUser);
-    this.store.dispatch(getUserTransactions({ filterOptions: {} }));
+    this.store.dispatch(
+      getUserTransactions({ filterOptions: {}, paginationOptions: {} })
+    );
 
     this.userTransactions$ = this.store.select(selectTransactions);
     this.accountTypeFilter$ = this.store.select(selectAccountTypeFilter);
@@ -36,6 +53,12 @@ export class TransationsTableComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.userInfoSubscription?.unsubscribe();
   }
+
+  onPageChange(value: PageEvent) {
+    console.log(value);
+    this.onSubmitPage.emit(value);
+  }
+
   displayedColumns: string[] = [
     'accountIbanEmitter',
     'transactionType',

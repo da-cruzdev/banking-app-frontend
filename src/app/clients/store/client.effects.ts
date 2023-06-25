@@ -69,9 +69,47 @@ export class ClientEffects {
             });
           }),
           catchError((error) => {
-            console.log(error);
-
             return of(ClientActions.createSubAccount_failed({ error: error }));
+          })
+        )
+      )
+    )
+  );
+
+  blockSubAccount$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ClientActions.blockSubAccount),
+      exhaustMap(({ iban }) =>
+        this.clientService.blockSubAccount(iban).pipe(
+          map((response) => {
+            console.log(response);
+            this.toastrService.success('Compte bloqué avec succès');
+            return ClientActions.blockSubAccount_success({ account: response });
+          }),
+          catchError((error) => {
+            this.toastrService.error(error.error.error);
+            return of(ClientActions.blockSubAccount_failed({ error: error }));
+          })
+        )
+      )
+    )
+  );
+
+  unblockSubAccount$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ClientActions.unblockSubAccount),
+      exhaustMap(({ iban }) =>
+        this.clientService.unblockSubAccount(iban).pipe(
+          map((response) => {
+            console.log(response);
+            this.toastrService.success('Compte débloqué avec succès');
+            return ClientActions.unblockSubAccount_success({
+              account: response,
+            });
+          }),
+          catchError((error) => {
+            this.toastrService.error(error.error.error);
+            return of(ClientActions.unblockSubAccount_failed({ error: error }));
           })
         )
       )
@@ -114,7 +152,7 @@ export class ClientEffects {
   getUserTransactions$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ClientActions.getUserTransactions.type),
-      exhaustMap(({ filterOptions }) =>
+      exhaustMap(({ filterOptions, paginationOptions }) =>
         this.clientService.getUserTransactions(filterOptions).pipe(
           map((response) => {
             return ClientActions.getUserTransactions_success({

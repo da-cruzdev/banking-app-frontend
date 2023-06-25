@@ -14,6 +14,7 @@ export interface State {
   transactions: TransactionData[];
   accountTypeFilter: string | null;
   filters: unknown;
+  account: AccountsDataResponse | null;
 }
 
 const initialState: State = {
@@ -26,6 +27,7 @@ const initialState: State = {
   transactions: [],
   accountTypeFilter: null,
   filters: null,
+  account: null,
 };
 
 export const clientFeature = createFeature({
@@ -74,6 +76,32 @@ export const clientFeature = createFeature({
     on(ClientActions.createSubAccount_success, (state, { payload }) => ({
       ...state,
       account: payload,
+      loading: false,
+    })),
+    on(ClientActions.blockSubAccount, (state) => ({
+      ...state,
+      loading: true,
+    })),
+    on(ClientActions.blockSubAccount_success, (state, { account }) => ({
+      ...state,
+      account: account,
+      loading: false,
+    })),
+    on(ClientActions.blockSubAccount_failed, (state) => ({
+      ...state,
+      loading: false,
+    })),
+    on(ClientActions.unblockSubAccount, (state) => ({
+      ...state,
+      loading: true,
+    })),
+    on(ClientActions.unblockSubAccount_success, (state, { account }) => ({
+      ...state,
+      account: account,
+      loading: false,
+    })),
+    on(ClientActions.unblockSubAccount_failed, (state) => ({
+      ...state,
       loading: false,
     })),
     on(ClientActions.createTransaction, (state) => ({

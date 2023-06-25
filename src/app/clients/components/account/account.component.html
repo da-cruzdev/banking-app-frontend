@@ -21,6 +21,7 @@
     <mat-icon matSuffix (click)="toggleBalanceVisibility()">
       {{ showBalance ? "visibility_off" : "visibility" }}
     </mat-icon>
+    <div class="lock"></div>
     <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon class="click-btn">more_vert</mat-icon>
     </button>
@@ -60,18 +61,35 @@
       </div>
       <p class="p-content" *ngIf="!showBalance">..........</p>
     </div>
-    <mat-icon class="show" matSuffix (click)="toggleBalanceVisibility()">
-      {{ showBalance ? "visibility_off" : "visibility" }}
-    </mat-icon>
-    <mat-icon class="ms-2" *ngIf="subAccountData.accountType == 'blocked'"
-      >lock</mat-icon
-    >
+    <div class="see mt-2">
+      <mat-icon class="show" matSuffix (click)="toggleBalanceVisibility()">
+        {{ showBalance ? "visibility_off" : "visibility" }}
+      </mat-icon>
+    </div>
+    <div class="lock">
+      <mat-icon
+        class="ms-2 mt-3"
+        *ngIf="subAccountData.accountType == 'blocked'"
+        >lock</mat-icon
+      >
+    </div>
     <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon class="click-btn">more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu" xPosition="after">
-      <button mat-menu-item class="menu">Bloquer le compte</button>
-      <button mat-menu-item matIconSuffix class="menu">
+      <button
+        mat-menu-item
+        class="menu"
+        (click)="blockSubAccount(subAccountData.iban)"
+      >
+        Bloquer le compte
+      </button>
+      <button
+        mat-menu-item
+        matIconSuffix
+        class="menu"
+        (click)="unblockSubAccount(subAccountData.iban)"
+      >
         Débloquer le compte
       </button>
     </mat-menu>
