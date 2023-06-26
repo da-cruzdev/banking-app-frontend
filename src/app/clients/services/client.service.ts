@@ -8,7 +8,10 @@ import {
   CreateTransactionData,
   TransactionData,
 } from 'src/app/shared/interfaces/transactions.interfaces';
-import { UserDataResponse } from 'src/app/shared/interfaces/user.interfaces';
+import {
+  UserDataResponse,
+  updateUserData,
+} from 'src/app/shared/interfaces/user.interfaces';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -54,13 +57,17 @@ export class ClientService {
     return this.httpClient.post(this.url + '/transactions/create', data);
   }
 
-  getUserTransactions(
-    params: Record<string, string>
-    // param: Record<string, string>
-  ) {
+  getUserTransactions(params: any) {
     return this.httpClient.get<TransactionData[]>(
       this.url + `/users/transactions`,
       { params }
+    );
+  }
+
+  updateUserInfo(data: updateUserData) {
+    return this.httpClient.patch<UserDataResponse>(
+      this.url + '/user/update',
+      data
     );
   }
 }

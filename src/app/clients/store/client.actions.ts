@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { TransactionsFilterOptions } from 'src/app/shared/interfaces';
 import {
   AccountsDataResponse,
   createSubAccountData,
@@ -7,7 +8,10 @@ import {
   CreateTransactionData,
   TransactionData,
 } from 'src/app/shared/interfaces/transactions.interfaces';
-import { UserDataResponse } from 'src/app/shared/interfaces/user.interfaces';
+import {
+  UserDataResponse,
+  updateUserData,
+} from 'src/app/shared/interfaces/user.interfaces';
 
 export const GetUser = createAction(
   '[Client] GetUser'
@@ -101,8 +105,7 @@ export const createTransaction_failed = createAction(
 export const getUserTransactions = createAction(
   '[Client] getTransactions',
   props<{
-    filterOptions: Record<string, string>;
-    paginationOptions: Record<string, string>;
+    filterOptions: TransactionsFilterOptions;
   }>()
 );
 
@@ -116,9 +119,19 @@ export const getUserTransactions_failed = createAction(
   props<{ error: string }>()
 );
 
-export const setAccountTypeFilter = createAction(
-  '[Client] Set Account Type Filter',
-  props<{ filter: string }>()
+export const updateUserInfos = createAction(
+  '[Client] updateUserInfos',
+  props<{ payload: updateUserData }>()
+);
+
+export const updateUserInfos_success = createAction(
+  '[Client] updateUserInfos success',
+  props<{ user: UserDataResponse }>()
+);
+
+export const updateUserInfos_failed = createAction(
+  '[Client] updateUserInfos failed',
+  props<{ error: string }>()
 );
 
 export const filterTransactions = createAction(

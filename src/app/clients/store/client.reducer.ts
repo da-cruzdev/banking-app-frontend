@@ -132,9 +132,19 @@ export const clientFeature = createFeature({
       error,
       loading: false,
     })),
-    on(ClientActions.setAccountTypeFilter, (state, { filter }) => ({
+    on(ClientActions.updateUserInfos, (state) => ({
       ...state,
-      accountTypeFilter: filter,
+      loading: true,
+    })),
+    on(ClientActions.updateUserInfos_success, (state, { user }) => ({
+      ...state,
+      user,
+      loading: true,
+    })),
+    on(ClientActions.updateUserInfos_failed, (state, { error }) => ({
+      ...state,
+      error: error,
+      loading: true,
     })),
     on(ClientActions.filterTransactions, (state, { filters }) => ({
       ...state,

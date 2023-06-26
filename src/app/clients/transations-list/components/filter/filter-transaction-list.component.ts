@@ -2,7 +2,6 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { setAccountTypeFilter } from 'src/app/clients/store/client.actions';
 import { selectAccountTypeFilter } from 'src/app/clients/store/client.selectors';
 
 @Component({

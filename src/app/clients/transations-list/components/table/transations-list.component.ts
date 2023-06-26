@@ -17,6 +17,7 @@ import {
   selectUser,
 } from 'src/app/clients/store/client.reducer';
 import { selectAccountTypeFilter } from 'src/app/clients/store/client.selectors';
+import { PaginationOptions } from 'src/app/shared/interfaces';
 import { TransactionData } from 'src/app/shared/interfaces/transactions.interfaces';
 import { UserDataResponse } from 'src/app/shared/interfaces/user.interfaces';
 
@@ -32,6 +33,10 @@ export class TransationsTableComponent implements OnInit, OnDestroy {
   userInfos$!: Observable<UserDataResponse | null>;
   userInfoSubscription: Subscription | undefined;
   accountTypeFilter$!: Observable<string | null>;
+  paginationOptions: PaginationOptions = {
+    skip: 0,
+    take: 5,
+  };
 
   // paginationFilter = {
   //   length: 'length',
@@ -43,7 +48,11 @@ export class TransationsTableComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.userInfos$ = this.store.select(selectUser);
     this.store.dispatch(
-      getUserTransactions({ filterOptions: {}, paginationOptions: {} })
+      getUserTransactions({
+        filterOptions: {
+          ...this.paginationOptions,
+        },
+      })
     );
 
     this.userTransactions$ = this.store.select(selectTransactions);

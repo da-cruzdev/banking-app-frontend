@@ -45,6 +45,5 @@ import { UpdateUserInfoComponent } from './components/update-user-info/update-us
     StoreModule.forFeature(clientFeature),
     EffectsModule.forFeature([ClientEffects]),
   ],
-  exports: [DashboardComponent],
 })
 export class ClientModule {}

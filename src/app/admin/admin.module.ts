@@ -19,6 +19,5 @@ import { TransactionStatusPipe } from '../shared/pipes/transaction-status.pipe';
     StoreModule.forFeature(adminFeature),
     EffectsModule.forFeature([AdminEffects]),
   ],
-  exports: [DashboardAdminComponent],
 })
 export class AdminModule {}

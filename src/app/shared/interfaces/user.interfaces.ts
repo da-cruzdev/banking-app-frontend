@@ -19,3 +19,9 @@ export interface UserDataResponse {
   createdAt?: Date;
   updatedAt?: Date;
 }
+
+export interface updateUserData {
+  name?: string;
+  email?: string;
+  password?: string;
+}

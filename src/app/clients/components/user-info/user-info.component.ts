@@ -16,10 +16,8 @@ export class UserInfoComponent implements OnInit {
   ngOnInit(): void {}
 
   openDialog() {
-    console.log('===========> Je suisn ici');
-
     this.dialog.open(UpdateUserInfoComponent, {
-      width: '550px',
+      width: '530px',
       height: '100vh',
       position: {
         right: '0',

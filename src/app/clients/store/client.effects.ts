@@ -36,6 +36,23 @@ export class ClientEffects {
     )
   );
 
+  updateUserInfos$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ClientActions.updateUserInfos),
+      exhaustMap(({ payload }) =>
+        this.clientService.updateUserInfo(payload).pipe(
+          map((response) => {
+            return ClientActions.updateUserInfos_success({ user: response });
+          }),
+          catchError((error) => {
+            this.toastrService.error(error.error.error, 'Erreur');
+            return of(ClientActions.updateUserInfos_failed({ error: error }));
+          })
+        )
+      )
+    )
+  );
+
   getUserAccounts$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ClientActions.getUserAccounts),
@@ -152,7 +169,7 @@ export class ClientEffects {
   getUserTransactions$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ClientActions.getUserTransactions.type),
-      exhaustMap(({ filterOptions, paginationOptions }) =>
+      exhaustMap(({ filterOptions }) =>
         this.clientService.getUserTransactions(filterOptions).pipe(
           map((response) => {
             return ClientActions.getUserTransactions_success({
