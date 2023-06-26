@@ -7,8 +7,8 @@
     {{ userData?.name?.split(' ')?.[1] }}
   </div>
   <div class="user__email">Email: {{ userData?.email }}</div>
-  <div class="user__edit-btn">
+  <button class="user__edit-btn" (click)="openDialog()">
     <p class="user__edit-btn-text" href="#">Editer le profil</p>
     <mat-icon class="user__edit-btn-icon">create</mat-icon>
-  </div>
+  </button>
 </div>

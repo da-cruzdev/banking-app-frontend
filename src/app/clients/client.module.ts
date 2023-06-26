@@ -19,6 +19,7 @@ import { DialogFailedComponent } from './transations-list/components/dialogs/dia
 import { AccountTypeFilterPipe } from '../shared/pipes/account-type-filter.pipe';
 import { TransationsTableComponent } from './transations-list/components/table/transations-list.component';
 import { TransactionStatusPipe } from '../shared/pipes/transaction-status.pipe';
+import { UpdateUserInfoComponent } from './components/update-user-info/update-user-info.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { TransactionStatusPipe } from '../shared/pipes/transaction-status.pipe';
     TransactionDebitComponent,
     DialogSuccessComponent,
     DialogFailedComponent,
+    UpdateUserInfoComponent,
   ],
   imports: [
     CommonModule,
