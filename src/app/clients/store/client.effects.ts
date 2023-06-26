@@ -42,6 +42,9 @@ export class ClientEffects {
       exhaustMap(({ payload }) =>
         this.clientService.updateUserInfo(payload).pipe(
           map((response) => {
+            if (response.token) {
+              localStorage.setItem('@token', response.token);
+            }
             return ClientActions.updateUserInfos_success({ user: response });
           }),
           catchError((error) => {
@@ -173,7 +176,8 @@ export class ClientEffects {
         this.clientService.getUserTransactions(filterOptions).pipe(
           map((response) => {
             return ClientActions.getUserTransactions_success({
-              payload: response,
+              data: response.data,
+              pagination: response.pagination,
             });
           }),
           catchError((error) => {

@@ -13,6 +13,7 @@ import {
   getUserTransactions,
 } from 'src/app/clients/store/client.actions';
 import {
+  selectPagination,
   selectTransactions,
   selectUser,
 } from 'src/app/clients/store/client.reducer';
@@ -33,19 +34,21 @@ export class TransationsTableComponent implements OnInit, OnDestroy {
   userInfos$!: Observable<UserDataResponse | null>;
   userInfoSubscription: Subscription | undefined;
   accountTypeFilter$!: Observable<string | null>;
+  pagination$!: any;
+  paginationSubscription: Subscription | undefined;
   paginationOptions: PaginationOptions = {
     skip: 0,
     take: 5,
   };
 
-  // paginationFilter = {
-  //   length: 'length',
-  //   pageSize: 'pageSize',
-  //   pageOptions: 'pageOptions',
-  // };
-
   constructor(private readonly store: Store) {}
   ngOnInit(): void {
+    this.paginationSubscription = this.store
+      .select(selectPagination)
+      .subscribe((data) => {
+        this.pagination$ = data;
+      });
+
     this.userInfos$ = this.store.select(selectUser);
     this.store.dispatch(
       getUserTransactions({
@@ -61,6 +64,7 @@ export class TransationsTableComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.userInfoSubscription?.unsubscribe();
+    this.paginationSubscription?.unsubscribe();
   }
 
   onPageChange(value: PageEvent) {

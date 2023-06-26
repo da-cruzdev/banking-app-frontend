@@ -1,5 +1,8 @@
 import { createAction, props } from '@ngrx/store';
-import { TransactionsFilterOptions } from 'src/app/shared/interfaces';
+import {
+  PaginationOptions,
+  TransactionsFilterOptions,
+} from 'src/app/shared/interfaces';
 import {
   AccountsDataResponse,
   createSubAccountData,
@@ -111,7 +114,7 @@ export const getUserTransactions = createAction(
 
 export const getUserTransactions_success = createAction(
   '[Client] getTransactions success',
-  props<{ payload: TransactionData[] }>()
+  props<{ data: TransactionData[]; pagination: PaginationOptions }>()
 );
 
 export const getUserTransactions_failed = createAction(

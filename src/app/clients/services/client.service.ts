@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { PaginationOptions } from 'src/app/shared/interfaces';
 import {
   AccountsDataResponse,
   createSubAccountData,
@@ -58,10 +59,10 @@ export class ClientService {
   }
 
   getUserTransactions(params: any) {
-    return this.httpClient.get<TransactionData[]>(
-      this.url + `/users/transactions`,
-      { params }
-    );
+    return this.httpClient.get<{
+      data: TransactionData[];
+      pagination: PaginationOptions;
+    }>(this.url + `/users/transactions`, { params });
   }
 
   updateUserInfo(data: updateUserData) {

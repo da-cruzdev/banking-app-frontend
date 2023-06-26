@@ -15,6 +15,7 @@ export interface State {
   accountTypeFilter: string | null;
   filters: unknown;
   account: AccountsDataResponse | null;
+  pagination: unknown | null;
 }
 
 const initialState: State = {
@@ -28,6 +29,7 @@ const initialState: State = {
   accountTypeFilter: null,
   filters: null,
   account: null,
+  pagination: null,
 };
 
 export const clientFeature = createFeature({
@@ -122,11 +124,15 @@ export const clientFeature = createFeature({
       ...state,
       loading: true,
     })),
-    on(ClientActions.getUserTransactions_success, (state, { payload }) => ({
-      ...state,
-      transactions: payload,
-      loading: false,
-    })),
+    on(
+      ClientActions.getUserTransactions_success,
+      (state, { data, pagination }) => ({
+        ...state,
+        transactions: data,
+        pagination: pagination,
+        loading: false,
+      })
+    ),
     on(ClientActions.getUserTransactions_failed, (state, { error }) => ({
       ...state,
       error,
@@ -164,4 +170,5 @@ export const {
   selectMessage,
   selectTransactions,
   selectFilters,
+  selectPagination,
 } = clientFeature;

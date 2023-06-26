@@ -37,8 +37,8 @@ export class TransactionsListComponent {
 
   onPageChange($event: any) {
     this.paginationOptions = {
-      skip: +$event.pageIndex,
       take: +$event.pageSize,
+      skip: Number($event.pageIndex) * Number($event.pageSize),
     };
 
     this.store.dispatch(
