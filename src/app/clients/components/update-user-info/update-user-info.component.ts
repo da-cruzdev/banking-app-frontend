@@ -64,9 +64,9 @@ export class UpdateUserInfoComponent implements OnInit, OnDestroy {
     this.passwordForm = this.fb.group({
       oldPassword: [
         '',
-        [Validators.required, Validators.pattern('^[A-Za-zd]{8,}$')],
+        [Validators.required, Validators.pattern('^[A-Za-z0-9]{8,30}$')],
       ],
-      newPassword: ['', [Validators.pattern('^[A-Za-zd]{8,}$')]],
+      newPassword: ['', [Validators.pattern('^[A-Za-z0-9]{8,30}$')]],
       confirmNewPassword: [
         '',
         [Validators.required, this.validateNewPasswordConfirmation.bind(this)],

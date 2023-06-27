@@ -42,6 +42,8 @@ export class ClientEffects {
       exhaustMap(({ payload }) =>
         this.clientService.updateUserInfo(payload).pipe(
           map((response) => {
+            console.log(response);
+
             if (response.token) {
               localStorage.setItem('@token', response.token);
             }
@@ -142,7 +144,6 @@ export class ClientEffects {
       exhaustMap(({ payload }) =>
         this.clientService.createTransaction(payload).pipe(
           map((response) => {
-            console.log(response);
             this.toastrService.success(
               'Votre transaction a été effectuée et est en cours de traitement'
             );

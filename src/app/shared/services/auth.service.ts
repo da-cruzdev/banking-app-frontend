@@ -79,11 +79,16 @@ export class AuthService {
       );
   }
 
-  resetPassword(data: any, token: string) {
+  resetPassword(password: string, token: string) {
+    token = localStorage.getItem('token')!;
     return this.httpClient
-      .post<httpResponse>(this.url + '/auth/reset-password', data, {
-        headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      })
+      .post<httpResponse>(
+        this.url + '/auth/reset-password',
+        { password, token },
+        {
+          headers: new HttpHeaders().set('Content-Type', 'application/json'),
+        }
+      )
       .pipe(
         tap((response) => {
           this.toastrService.success(response.message);

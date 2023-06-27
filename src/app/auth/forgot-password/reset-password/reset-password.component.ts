@@ -43,12 +43,9 @@ export class ResetPasswordComponent {
   }
 
   onSubmit() {
-    const formData = this.resetPassForm.value;
+    if (this.resetPassForm.invalid) return;
 
-    const data = {
-      password: formData.password,
-      confirmPassword: formData.confirmPassword,
-    };
+    const data = this.resetPassForm.value.password;
 
     const token = localStorage.getItem('token');
     if (token) this.authService.resetPassword(data, token).subscribe();

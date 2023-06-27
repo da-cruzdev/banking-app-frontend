@@ -11,10 +11,10 @@
           >Le nom est requis</mat-error
         >
         <mat-error *ngIf="hasControlError('name', 'minlength')"
-          >Le nom doit avoir au moins 5 caratères</mat-error
+          >Le nom doit avoir au moins 5 caractères</mat-error
         >
         <mat-error *ngIf="hasControlError('name', 'maxlength')"
-          >Le nom doit avoir au maximum 50 caratères</mat-error
+          >Le nom doit avoir au maximum 50 caractères</mat-error
         >
       </mat-form-field>
       <div class="text-end">
@@ -70,7 +70,7 @@
           >Veuillez entrer votre nouveau mot de passe</mat-error
         >
         <mat-error *ngIf="hasControlError('newPassword', 'pattern')"
-          >Le mot de passe doit avoir au moins 8 caractères</mat-error
+          >Le mot de passe doit être compris entre 8 et 30 caractères</mat-error
         >
       </mat-form-field>
       <mat-form-field appearance="outline" class="field">
