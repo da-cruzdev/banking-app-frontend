@@ -3,5 +3,7 @@ tr.mat-mdc-header-row.mdc-data-table__header-row.cdk-header-row.ng-star-inserted
 }
 
 mat-paginator {
-  margin-top: 8rem;
+  position: fixed;
+  right: 0;
+  bottom: 30px;
 }
