@@ -23,5 +23,6 @@ export interface UserDataResponse {
 export interface updateUserData {
   name?: string;
   email?: string;
-  password?: string;
+  oldPassword?: string;
+  newPassword?: string;
 }

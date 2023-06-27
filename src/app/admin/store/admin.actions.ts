@@ -1,14 +1,18 @@
 import { createAction, props } from '@ngrx/store';
+import {
+  PaginationOptions,
+  TransactionsFilterOptions,
+} from 'src/app/shared/interfaces';
 import { TransactionData } from 'src/app/shared/interfaces/transactions.interfaces';
 
 export const getAllTransactions = createAction(
   '[Admin] getAllTransactions',
-  props<{ filterOptions: Record<string, string> }>()
+  props<{ filterOptions: TransactionsFilterOptions }>()
 );
 
 export const getAllTransactions_success = createAction(
   '[Admin] getAllTransactions success',
-  props<{ payload: TransactionData[] }>()
+  props<{ data: TransactionData[]; pagination: PaginationOptions }>()
 );
 
 export const getAllTransactions_failed = createAction(

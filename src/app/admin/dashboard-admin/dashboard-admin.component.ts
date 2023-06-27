@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import {
   getAllTransactions,
   rejectTransaction,
@@ -11,9 +11,15 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import {
   selectAllTransactions,
+  selectPagination,
   selectTransaction,
 } from '../store/admin.reducer';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import {
+  PaginationOptions,
+  TransactionsFilterOptions,
+} from 'src/app/shared/interfaces';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -24,7 +30,13 @@ export class DashboardAdminComponent implements OnInit {
   accountTypeFilter$!: Observable<string | null>;
   allTransactions$!: Observable<TransactionData[]>;
   transaction$!: TransactionData;
-  filterOptions: Record<string, string> = {};
+  filterOptions: TransactionsFilterOptions = {};
+  paginationSubscription: Subscription | undefined;
+  pagination$!: PaginationOptions | null;
+  paginationOptions: PaginationOptions = {
+    take: 5,
+    skip: 0,
+  };
 
   filterFields = {
     accountType: 'accountType',
@@ -41,17 +53,22 @@ export class DashboardAdminComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(
-      getAllTransactions({ filterOptions: this.filterOptions })
+      getAllTransactions({
+        filterOptions: { ...this.paginationOptions, ...this.filterOptions },
+      })
     );
 
     this.allTransactions$ = this.store.select(selectAllTransactions);
+
+    this.paginationSubscription = this.store
+      .select(selectPagination)
+      .subscribe((data) => {
+        this.pagination$ = data;
+      });
   }
 
-  ngOnDestroy(): void {}
-  logout() {
-    localStorage.removeItem('@token');
-    this.toastrService.success('Déconnexion réussie');
-    this.router.navigate(['/auth/login']);
+  ngOnDestroy(): void {
+    this.paginationSubscription?.unsubscribe();
   }
 
   validateTransaction(id: string) {
@@ -98,10 +115,27 @@ export class DashboardAdminComponent implements OnInit {
     this.refreshTransactions();
   }
 
+  onPageChange($event: PageEvent) {
+    this.paginationOptions = {
+      take: +$event.pageSize,
+      skip: Number($event.pageIndex) * Number($event.pageSize),
+    };
+
+    this.refreshTransactions();
+  }
+
   private refreshTransactions() {
     this.store.dispatch(
-      getAllTransactions({ filterOptions: this.filterOptions })
+      getAllTransactions({
+        filterOptions: { ...this.filterOptions, ...this.paginationOptions },
+      })
     );
+  }
+
+  logout() {
+    localStorage.removeItem('@token');
+    this.toastrService.success('Déconnexion réussie');
+    this.router.navigate(['/auth/login']);
   }
 
   displayedColumns: string[] = [

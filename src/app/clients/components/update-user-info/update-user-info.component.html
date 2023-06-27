@@ -11,7 +11,7 @@
           >Le nom est requis</mat-error
         >
         <mat-error *ngIf="hasControlError('name', 'minlength')"
-          >Le nom doit avoir au moins 3 caratères</mat-error
+          >Le nom doit avoir au moins 5 caratères</mat-error
         >
         <mat-error *ngIf="hasControlError('name', 'maxlength')"
           >Le nom doit avoir au maximum 50 caratères</mat-error
@@ -54,6 +54,9 @@
           formControlName="oldPassword"
           type="password"
         />
+        <mat-error *ngIf="hasControlError('oldPassword', 'required')"
+          >Le mot de passe est requis</mat-error
+        >
       </mat-form-field>
       <mat-form-field appearance="outline" class="field">
         <mat-label>Nouveau mot de passe</mat-label>
@@ -63,6 +66,12 @@
           formControlName="newPassword"
           type="password"
         />
+        <mat-error *ngIf="hasControlError('newPassword', 'required')"
+          >Veuillez entrer votre nouveau mot de passe</mat-error
+        >
+        <mat-error *ngIf="hasControlError('newPassword', 'pattern')"
+          >Le mot de passe doit avoir au moins 8 caractères</mat-error
+        >
       </mat-form-field>
       <mat-form-field appearance="outline" class="field">
         <mat-label>Confirmez le mot de passe</mat-label>
@@ -72,9 +81,23 @@
           formControlName="confirmNewPassword"
           type="password"
         />
+        <mat-error *ngIf="hasControlError('confirmNewPassword', 'required')">
+          La confirmation du mot de passe est requise
+        </mat-error>
+        <mat-error
+          *ngIf="hasControlError('confirmNewPassword', 'passwordMismatch')"
+        >
+          Les mots de passe ne correspondent pas
+        </mat-error>
       </mat-form-field>
       <div class="text-end">
-        <button mat-stroked-button>Enregistrer</button>
+        <button
+          mat-stroked-button
+          [disabled]="passwordForm.invalid"
+          (click)="onPasswordFormSubmit()"
+        >
+          Enregistrer
+        </button>
       </div>
     </form>
     <div class="text-center">

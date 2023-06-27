@@ -34,7 +34,7 @@ export class TransationsTableComponent implements OnInit, OnDestroy {
   userInfos$!: Observable<UserDataResponse | null>;
   userInfoSubscription: Subscription | undefined;
   accountTypeFilter$!: Observable<string | null>;
-  pagination$!: any;
+  pagination$!: PaginationOptions | null;
   paginationSubscription: Subscription | undefined;
   paginationOptions: PaginationOptions = {
     skip: 0,

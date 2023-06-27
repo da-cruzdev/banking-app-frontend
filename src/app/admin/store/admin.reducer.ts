@@ -1,12 +1,14 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import * as AdminActions from './admin.actions';
 import { TransactionData } from 'src/app/shared/interfaces/transactions.interfaces';
+import { PaginationOptions } from 'src/app/shared/interfaces';
 
 export interface State {
   allTransactions: TransactionData[];
   loading: boolean;
   transaction: TransactionData | null;
   error: string | null;
+  pagination: PaginationOptions | null;
 }
 
 const initialState: State = {
@@ -14,6 +16,7 @@ const initialState: State = {
   loading: false,
   transaction: null,
   error: null,
+  pagination: null,
 };
 
 export const adminFeature = createFeature({
@@ -28,11 +31,15 @@ export const adminFeature = createFeature({
       ...state,
       loading: false,
     })),
-    on(AdminActions.getAllTransactions_success, (state, { payload }) => ({
-      ...state,
-      allTransactions: payload,
-      loading: false,
-    })),
+    on(
+      AdminActions.getAllTransactions_success,
+      (state, { data, pagination }) => ({
+        ...state,
+        allTransactions: data,
+        pagination: pagination,
+        loading: false,
+      })
+    ),
     on(AdminActions.validateTransaction, (state) => ({
       ...state,
       loading: true,
@@ -70,4 +77,5 @@ export const {
   selectAllTransactions,
   selectLoading,
   selectTransaction,
+  selectPagination,
 } = adminFeature;

@@ -1,11 +1,19 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectUser } from '../../store/client.selectors';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { UserDataResponse } from 'src/app/shared/interfaces/user.interfaces';
 import { updateUserInfos } from '../../store/client.actions';
 import { MatDialogRef } from '@angular/material/dialog';
+import { validatePassword } from 'src/app/shared/constants/validator';
+import { updateUserData } from 'src/app/shared/interfaces';
 
 @Component({
   selector: 'app-update-user-info',
@@ -54,9 +62,15 @@ export class UpdateUserInfoComponent implements OnInit, OnDestroy {
     });
 
     this.passwordForm = this.fb.group({
-      oldPassword: [''],
-      newPassword: [''],
-      confirmNewPassword: [''],
+      oldPassword: [
+        '',
+        [Validators.required, Validators.pattern('^[A-Za-zd]{8,}$')],
+      ],
+      newPassword: ['', [Validators.pattern('^[A-Za-zd]{8,}$')]],
+      confirmNewPassword: [
+        '',
+        [Validators.required, this.validateNewPasswordConfirmation.bind(this)],
+      ],
     });
   }
 
@@ -65,14 +79,38 @@ export class UpdateUserInfoComponent implements OnInit, OnDestroy {
   }
 
   onFormNameSubmit() {
+    if (this.nameForm.invalid) return;
     const data = { name: this.nameForm.value.name };
     this.store.dispatch(updateUserInfos({ payload: data }));
-    // this.nameForm.reset();
   }
 
   onEmailFormSubmit() {
+    if (this.emailForm.invalid) return;
     const data = { email: this.emailForm.value.email };
     this.store.dispatch(updateUserInfos({ payload: data }));
+  }
+
+  onPasswordFormSubmit() {
+    if (this.passwordForm.invalid) return;
+    const data = {
+      oldPassword: this.passwordForm.value.oldPassword,
+      newPassword: this.passwordForm.value.newPassword,
+      // confirmNewPassword: this.passwordForm.value.confirmNewPassword,
+    };
+    this.store.dispatch(updateUserInfos({ payload: data }));
+  }
+
+  validateNewPasswordConfirmation(
+    control: AbstractControl
+  ): ValidationErrors | null {
+    const newPassword = control.get('newPassword')?.value;
+    const confirmNewPassword = control.get('confirmNewPassword')?.value;
+
+    if (newPassword !== confirmNewPassword) {
+      return { passwordMismatch: true };
+    }
+
+    return null;
   }
 
   hasControlError(controlName: string, errorName: string): boolean {

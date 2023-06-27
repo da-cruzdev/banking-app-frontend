@@ -3,6 +3,7 @@ import * as ClientActions from './client.actions';
 import { UserDataResponse } from 'src/app/shared/interfaces/user.interfaces';
 import { AccountsDataResponse } from 'src/app/shared/interfaces/accounts.interfaces';
 import { TransactionData } from 'src/app/shared/interfaces/transactions.interfaces';
+import { PaginationOptions } from 'src/app/shared/interfaces';
 
 export interface State {
   user: UserDataResponse | null;
@@ -15,7 +16,7 @@ export interface State {
   accountTypeFilter: string | null;
   filters: unknown;
   account: AccountsDataResponse | null;
-  pagination: unknown | null;
+  pagination: PaginationOptions | null;
 }
 
 const initialState: State = {
