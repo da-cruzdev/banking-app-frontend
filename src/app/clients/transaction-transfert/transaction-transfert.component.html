@@ -116,7 +116,12 @@
             color="primary"
             class="submit-button"
             [type]=""
-            [disabled]="transactionForm.invalid"
+            [disabled]="
+              transactionForm.invalid ||
+              (selectedAccount?.balance || 0) -
+                (transactionForm.value?.amount || 0) <
+                0
+            "
           >
             Envoyer
           </button>

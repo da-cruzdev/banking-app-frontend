@@ -5,6 +5,7 @@
   justify-content: space-between;
   background: #f5f5f5 !important;
   font-size: 0.5rem;
+  font-family: "Montserrat", sans-serif;
   padding: 0 5rem 0 5rem;
 
   &__name {
@@ -78,6 +79,7 @@ tr.mat-mdc-header-row.mdc-data-table__header-row.cdk-header-row.ng-star-inserted
 .fluid {
   width: 90%;
   margin: 3rem auto;
+  font-family: "Montserrat", sans-serif;
 }
 
 .logout-btn {

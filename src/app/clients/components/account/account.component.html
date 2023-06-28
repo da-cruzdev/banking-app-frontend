@@ -6,7 +6,7 @@
     <div class="account__number">
       <p class="p-title">Numéro de compte</p>
       <p class="p-content" matTooltip="{{ (accountData$ | async)?.iban }}">
-        {{ (accountData$ | async)?.iban | slice : 0 : 13 }}
+        {{ (accountData$ | async)?.iban | slice : 0 : 10 }}
       </p>
     </div>
 
@@ -18,7 +18,7 @@
       </div>
       <p class="p-content" *ngIf="!showBalance">..........</p>
     </div>
-    <mat-icon matSuffix (click)="toggleBalanceVisibility()">
+    <mat-icon class="show" matSuffix (click)="toggleBalanceVisibility()">
       {{ showBalance ? "visibility_off" : "visibility" }}
     </mat-icon>
     <div class="lock"></div>
@@ -49,7 +49,7 @@
     <div class="account__number">
       <p class="p-title">Numéro de compte</p>
       <p class="p-content" matTooltip="{{ subAccountData.iban }}">
-        {{ subAccountData.iban | slice : 0 : 13 }}
+        {{ subAccountData.iban | slice : 0 : 10 }}
       </p>
     </div>
 
