@@ -129,7 +129,7 @@ export const updateUserInfos = createAction(
 
 export const updateUserInfos_success = createAction(
   '[Client] updateUserInfos success',
-  props<{ user: UserDataResponse }>()
+  props<{ user: UserDataResponse; message: string }>()
 );
 
 export const updateUserInfos_failed = createAction(

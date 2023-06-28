@@ -46,7 +46,7 @@ export class UpdateUserInfoComponent implements OnInit, OnDestroy {
         [
           Validators.required,
           Validators.minLength(5),
-          Validators.maxLength(50),
+          Validators.maxLength(30),
         ],
       ],
     });
@@ -66,7 +66,10 @@ export class UpdateUserInfoComponent implements OnInit, OnDestroy {
         '',
         [Validators.required, Validators.pattern('^[A-Za-z0-9]{8,30}$')],
       ],
-      newPassword: ['', [Validators.pattern('^[A-Za-z0-9]{8,30}$')]],
+      newPassword: [
+        '',
+        [Validators.required, Validators.pattern('^[A-Za-z0-9]{8,30}$')],
+      ],
       confirmNewPassword: [
         '',
         [Validators.required, this.validateNewPasswordConfirmation.bind(this)],
@@ -95,7 +98,7 @@ export class UpdateUserInfoComponent implements OnInit, OnDestroy {
     const data = {
       oldPassword: this.passwordForm.value.oldPassword,
       newPassword: this.passwordForm.value.newPassword,
-      // confirmNewPassword: this.passwordForm.value.confirmNewPassword,
+      confirmNewPassword: this.passwordForm.value.confirmNewPassword,
     };
     this.store.dispatch(updateUserInfos({ payload: data }));
   }
@@ -113,8 +116,12 @@ export class UpdateUserInfoComponent implements OnInit, OnDestroy {
     return null;
   }
 
-  hasControlError(controlName: string, errorName: string): boolean {
-    const control = this.nameForm.get(controlName);
+  hasControlError(
+    form: FormGroup,
+    controlName: string,
+    errorName: string
+  ): boolean {
+    const control = form.get(controlName);
     return control?.errors?.[errorName];
   }
 

@@ -66,7 +66,7 @@ export class ClientService {
   }
 
   updateUserInfo(data: updateUserData) {
-    return this.httpClient.patch<UserDataResponse>(
+    return this.httpClient.patch<{ user: UserDataResponse; message: string }>(
       this.url + '/user/update',
       data
     );

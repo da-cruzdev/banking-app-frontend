@@ -143,8 +143,9 @@ export const clientFeature = createFeature({
       ...state,
       loading: true,
     })),
-    on(ClientActions.updateUserInfos_success, (state, { user }) => ({
+    on(ClientActions.updateUserInfos_success, (state, { user, message }) => ({
       ...state,
+      message,
       user,
       loading: true,
     })),

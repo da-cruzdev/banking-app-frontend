@@ -25,4 +25,5 @@ export interface updateUserData {
   email?: string;
   oldPassword?: string;
   newPassword?: string;
+  confirmNewPassword?: string;
 }

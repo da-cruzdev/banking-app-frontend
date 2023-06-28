@@ -7,14 +7,14 @@
       <mat-form-field appearance="outline" class="field">
         <mat-label>Nom d'utilisateur</mat-label>
         <input matInput placeholder="Nom" formControlName="name" />
-        <mat-error *ngIf="hasControlError('name', 'required')"
+        <mat-error *ngIf="hasControlError(nameForm, 'name', 'required')"
           >Le nom est requis</mat-error
         >
-        <mat-error *ngIf="hasControlError('name', 'minlength')"
+        <mat-error *ngIf="hasControlError(nameForm, 'name', 'minlength')"
           >Le nom doit avoir au moins 5 caractères</mat-error
         >
-        <mat-error *ngIf="hasControlError('name', 'maxlength')"
-          >Le nom doit avoir au maximum 50 caractères</mat-error
+        <mat-error *ngIf="hasControlError(nameForm, 'name', 'maxlength')"
+          >Le nom doit avoir au maximum 30 caractères</mat-error
         >
       </mat-form-field>
       <div class="text-end">
@@ -29,10 +29,10 @@
       <mat-form-field appearance="outline" class="field">
         <mat-label>Email</mat-label>
         <input matInput placeholder="Email" formControlName="email" />
-        <mat-error *ngIf="hasControlError('email', 'required')"
+        <mat-error *ngIf="hasControlError(emailForm, 'email', 'required')"
           >L'email est requis</mat-error
         >
-        <mat-error *ngIf="hasControlError('email', 'pattern')"
+        <mat-error *ngIf="hasControlError(emailForm, 'email', 'pattern')"
           >L'email n'est pas valide</mat-error
         >
       </mat-form-field>
@@ -54,8 +54,9 @@
           formControlName="oldPassword"
           type="password"
         />
-        <mat-error *ngIf="hasControlError('oldPassword', 'required')"
-          >Le mot de passe est requis</mat-error
+        <mat-error
+          *ngIf="hasControlError(passwordForm, 'oldPassword', 'required')"
+          >Votre ancien mot de passe est requis</mat-error
         >
       </mat-form-field>
       <mat-form-field appearance="outline" class="field">
@@ -66,10 +67,12 @@
           formControlName="newPassword"
           type="password"
         />
-        <mat-error *ngIf="hasControlError('newPassword', 'required')"
+        <mat-error
+          *ngIf="hasControlError(passwordForm, 'newPassword', 'required')"
           >Veuillez entrer votre nouveau mot de passe</mat-error
         >
-        <mat-error *ngIf="hasControlError('newPassword', 'pattern')"
+        <mat-error
+          *ngIf="hasControlError(passwordForm, 'newPassword', 'pattern')"
           >Le mot de passe doit être compris entre 8 et 30 caractères</mat-error
         >
       </mat-form-field>
@@ -81,15 +84,18 @@
           formControlName="confirmNewPassword"
           type="password"
         />
-        <mat-error *ngIf="hasControlError('confirmNewPassword', 'required')">
-          La confirmation du mot de passe est requise
-        </mat-error>
-        <mat-error
-          *ngIf="hasControlError('confirmNewPassword', 'passwordMismatch')"
-        >
-          Les mots de passe ne correspondent pas
-        </mat-error>
       </mat-form-field>
+      <mat-error
+        *ngIf="
+          hasControlError(
+            passwordForm,
+            'confirmNewPassword',
+            'passwordMismatch'
+          )
+        "
+      >
+        Les mots de passe ne correspondent pas
+      </mat-error>
       <div class="text-end">
         <button
           mat-stroked-button

@@ -2,12 +2,10 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as ClientActions from './client.actions';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
 import { ClientService } from '../services/client.service';
 import { catchError, exhaustMap, map } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { RegisterComponent } from 'src/app/auth/register/register.component';
 import { DialogSuccessComponent } from '../transations-list/components/dialogs/dialog-success/dialog-success.component';
 import { DialogFailedComponent } from '../transations-list/components/dialogs/dialog-failed/dialog-failed.component';
 import { Store } from '@ngrx/store';
@@ -43,11 +41,14 @@ export class ClientEffects {
         this.clientService.updateUserInfo(payload).pipe(
           map((response) => {
             console.log(response);
-
-            if (response.token) {
-              localStorage.setItem('@token', response.token);
+            this.toastrService.success(response.message);
+            if (response.user.token) {
+              localStorage.setItem('@token', response.user.token);
             }
-            return ClientActions.updateUserInfos_success({ user: response });
+            return ClientActions.updateUserInfos_success({
+              user: response.user,
+              message: response.message,
+            });
           }),
           catchError((error) => {
             this.toastrService.error(error.error.error, 'Erreur');

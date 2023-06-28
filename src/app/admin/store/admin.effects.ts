@@ -21,16 +21,12 @@ export class AdminEffects {
       exhaustMap(({ filterOptions }) =>
         this.adminService.getAllTransactions(filterOptions).pipe(
           map((response) => {
-            console.log(response);
-
             return AdminActions.getAllTransactions_success({
               data: response.data,
               pagination: response.pagination,
             });
           }),
           catchError((error) => {
-            console.log(error);
-
             this.toastrService.error(error.error.error, 'Erreur');
             return of(AdminActions.getAllTransactions_failed({ error: error }));
           })

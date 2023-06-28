@@ -80,7 +80,6 @@ export class AuthService {
   }
 
   resetPassword(password: string, token: string) {
-    token = localStorage.getItem('token')!;
     return this.httpClient
       .post<httpResponse>(
         this.url + '/auth/reset-password',
